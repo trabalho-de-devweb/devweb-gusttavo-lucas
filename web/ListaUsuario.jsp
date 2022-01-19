@@ -5,17 +5,21 @@
 <!DOCTYPE html>
 
 <script type="text/javascript">
-            const mudaBotaoSuspender = function(status, ind) {
+            const mudaBotaoSuspender = function(status, ind, id) {
                 const botaoSuspender = document.getElementById(`botaoSuspender-` + ind);
                 console.log(botaoSuspender);
                 
                 if (status === 'N') {
                     console.log("if");
-                    botaoSuspender.setAttribute("class", "btn btn-warning");
+                    const link_suspender = "ControllerUsuario?acao=suspender&id=" + id;
+                    botaoSuspender.setAttribute("class", "btn btn-danger");
+                    botaoSuspender.setAttribute("href", link_suspender);
                     botaoSuspender.textContent = "Suspender";
                 } else {
                     console.log("else");
+                    const link_ativar = "ControllerUsuario?acao=ativar&id=" + id;
                     botaoSuspender.setAttribute("class", "btn btn-success");
+                    botaoSuspender.setAttribute("href", link_ativar);
                     botaoSuspender.textContent = "Ativar";
                 }
             };
@@ -100,7 +104,7 @@
                                 document.querySelector('.btnSuspender').id = 'botaoSuspender-' + <%=i%>;
                                 console.log("<%= aux.getStatus() %>");
                                 status = "<%= aux.getStatus() %>";
-                                mudaBotaoSuspender(status, <%=i%>);
+                                mudaBotaoSuspender(status, <%=i%>, <%=aux.getId()%>);
                             </script>
                             </td> 
                            
