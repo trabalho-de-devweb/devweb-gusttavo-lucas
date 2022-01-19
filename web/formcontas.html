@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html lang="pt-br">
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css\bootstrap.min.css">
+        <title>Formulário de Contas</title>
+    </head>
+    
+    <body class="bg-light">
+        
+        <div class="container-fluid">
+            <div class="row justify-content-center">
+                <div class="col-md-4">
+                    <div class="py-4 text-center">
+                        <h2>Formulário de Contas</h2>
+                    </div>
+                    <form method="POST" action="">                        
+                        <div class="form-group">
+                            <label for="nomeContaCorrente">Nome:</label>
+                            <input type="text" class="form-control" id="nomeContaCorrente">
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroBanco">Número do banco:</label>
+                            <input type="text" class="form-control" id="numeroBanco">
+                            <small id="numeroBancoHelp" class="form-text text-muted">Exemplo: 001 – Banco do Brasil, 341 – Itaú, etc.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroAgencia">Agência:</label>
+                            <input type="text" class="form-control" id="numeroAgencia">
+                        </div>
+                        <div class="form-group">
+                            <label for="numeroContaCorrente">Conta corrente:</label>
+                            <input type="text" class="form-control" id="numeroContaCorrente">
+                        </div>
+                        <input type="submit" class="btn btn-primary btn-block my-4" value="Enviar">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="jquery-3.4.1.min.js"></script>
+        <script src="jquery.mask.min.js"></script>
+        <script src="popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        
+    </body>
+    
+</html>
