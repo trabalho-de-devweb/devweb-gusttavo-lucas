@@ -4,6 +4,23 @@
 <%@ page import="aplicacao.Usuario" %>
 <!DOCTYPE html>
 
+<script type="text/javascript">
+            const mudaBotaoSuspender = function(status, ind) {
+                const botaoSuspender = document.getElementById(`botaoSuspender-` + ind);
+                console.log(botaoSuspender);
+                
+                if (status === 'N') {
+                    console.log("if");
+                    botaoSuspender.setAttribute("class", "btn btn-warning");
+                    botaoSuspender.textContent = "Suspender";
+                } else {
+                    console.log("else");
+                    botaoSuspender.setAttribute("class", "btn btn-success");
+                    botaoSuspender.textContent = "Ativar";
+                }
+            };
+</script>
+
 <html>
     <head>
         <%@include file="cabecalho.html" %>
@@ -54,27 +71,21 @@
                     </thead> 
                     <tbody>
                         <%
-                            ArrayList<Usuario> ListaUsuario = (ArrayList<Usuario>) request.getAttribute("usuarioLista");
+                            ArrayList<Usuario> ListaUsuario = (ArrayList<Usuario>) request.getAttribute("usuarioLista"); %>
+                            <script type="text/javascript">let status = ""</script>
+                            <%
                             for (int i = 0; i < ListaUsuario.size(); i++) {
+                                
                                 Usuario aux = ListaUsuario.get(i);
                                 String link_ativar = "ControllerUsuario?acao=ativar&id="+aux.getId();
                                 String link_suspender = "ControllerUsuario?acao=suspender&id="+aux.getId();
                                 String link_editar = "ControllerUsuario?acao=editar&id="+aux.getId();
-                                String link_excluir = "ControllerUsuario?acao=excluir&id="+aux.getId();
-                                String visibilidadeSuspender;
-                                String visibilidadeAtivar;
-                                if(aux.getStatus().compareTo("N") != 0)
-                                {
-                                    visibilidadeSuspender = "visibility: hidden";
-                                    visibilidadeAtivar = "";
-                                }
-                                else
-                                {
-                                    visibilidadeSuspender = "";
-                                    visibilidadeAtivar = "visibility: hidden";
-                                }
-                                
-                        %>
+                                String link_excluir = "ControllerUsuario?acao=excluir&id="+aux.getId();%>
+                                <script type='text/javascript'>
+                                    
+                                </script>
+                         
+                        
                         <tr>
                             <td><%=aux.getNome()%></td>
                             <td><%=aux.getCpf()%></td> 
@@ -83,8 +94,14 @@
                             <td>
                             <a href="<%=link_excluir%>" class="btn btn-outline-danger float-right">Excluir</a> 
                             <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a>
-                            <a href="<%=link_suspender%>" style="<%=visibilidadeSuspender%>" class="btn btn-outline-secondary float-right">Suspender</a>
-                            <a href="<%=link_ativar%>" style="<%=visibilidadeAtivar%>" class="btn btn-outline-secondary float-right">Ativar</a>
+                            <a href="<%=link_suspender%>" style="" class="btn btn-outline-secondary float-right btnSuspender" id="">Suspender</a>
+                            <script type="text/javascript">
+                                console.log(<%=i%>);
+                                document.querySelector('.btnSuspender').id = 'botaoSuspender-' + <%=i%>;
+                                console.log("<%= aux.getStatus() %>");
+                                status = "<%= aux.getStatus() %>";
+                                mudaBotaoSuspender(status, <%=i%>);
+                            </script>
                             </td> 
                            
                         </tr>
@@ -100,7 +117,7 @@
         <%
         }
         %>
-        
+             
     </body>
 </html>
 
