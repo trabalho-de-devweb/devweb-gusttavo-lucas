@@ -12,13 +12,13 @@
                 if (status === 'N') {
                     console.log("if");
                     const link_suspender = "ControllerUsuario?acao=suspender&id=" + id;
-                    botaoSuspender.setAttribute("class", "btn btn-danger");
+                    botaoSuspender.setAttribute("class", "btn btn-danger float-right");
                     botaoSuspender.setAttribute("href", link_suspender);
                     botaoSuspender.textContent = "Suspender";
                 } else {
                     console.log("else");
                     const link_ativar = "ControllerUsuario?acao=ativar&id=" + id;
-                    botaoSuspender.setAttribute("class", "btn btn-success");
+                    botaoSuspender.setAttribute("class", "btn btn-success float-right");
                     botaoSuspender.setAttribute("href", link_ativar);
                     botaoSuspender.textContent = "Ativar";
                 }
