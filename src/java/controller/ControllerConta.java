@@ -1,8 +1,6 @@
 package controller;
 
-import aplicacao.Login;
-import aplicacao.Usuario;
-import aplicacao.Validador;
+import aplicacao.Conta;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -13,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import model.UsuarioDAO;
+import model.ContaDAO;
 
 @WebServlet(name = "ControllerConta", urlPatterns = {"/ControllerConta"})
 public class ControllerConta extends HttpServlet {
@@ -23,42 +21,28 @@ public class ControllerConta extends HttpServlet {
             throws ServletException, IOException 
     {
         
-        HttpSession sessionUsuario = request.getSession();
-        if(sessionUsuario.getAttribute("loginUsuario") == null)
-        {
-            RequestDispatcher validaLogin = getServletContext().getRequestDispatcher("/processarLogin");
-            validaLogin.forward(request, response);
-        }
-        else if(((Login)sessionUsuario.getAttribute("loginUsuario")).expiraLogin())
-        {
-            RequestDispatcher validaLogin = getServletContext().getRequestDispatcher("/processarLogin");
-            validaLogin.forward(request, response);
-        }
-        else
-        {
-        
         String mensagem;
         String servletDeRetorno = "ControllerConta?acao=mostrar";
-        UsuarioDAO usuarioController = new UsuarioDAO();
+        ContaDAO contaController = new ContaDAO();
         String acao = (String) request.getParameter("acao");
-        Usuario usuarioAtributo;
+        Conta contaAtributo;
         int id;
 
         switch (acao) {
             case "mostrar":
-                ArrayList<Usuario> usuarioLista;
-                usuarioLista = usuarioController.getLista();
-                request.setAttribute("usuarioLista", usuarioLista);
-                RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaUsuario.jsp");
+                ArrayList<Conta> contaLista;
+                contaLista = contaController.getLista();
+                request.setAttribute("contaLista", contaLista);
+                RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaConta.jsp");
                 mostrar.forward(request, response);
                 break;
                 
             case "incluir":
                 
-                usuarioAtributo = new Usuario();
-                usuarioAtributo.setId(0);
-                request.setAttribute("usuarioAtributo", usuarioAtributo);
-                RequestDispatcher incluir = request.getRequestDispatcher("/formusuarios.jsp");
+                contaAtributo = new Conta();
+                contaAtributo.setId(0);
+                request.setAttribute("contaAtributo", contaAtributo);
+                RequestDispatcher incluir = request.getRequestDispatcher("/formcontas.jsp");
                 incluir.forward(request, response);
                 break;
 
@@ -67,9 +51,9 @@ public class ControllerConta extends HttpServlet {
                 id = Integer.parseInt(request.getParameter("id"));
                 try
                 {
-                    usuarioAtributo = usuarioController.getUsuarioPorID(id);
-                    request.setAttribute("usuarioAtributo", usuarioAtributo);
-                    RequestDispatcher rs = request.getRequestDispatcher("/formusuarios.jsp");
+                    contaAtributo = contaController.getContaPorID(id);
+                    request.setAttribute("contaAtributo", contaAtributo);
+                    RequestDispatcher rs = request.getRequestDispatcher("/formcontas.jsp");
                     rs.forward(request, response);
                 }
                 catch (Exception e)
@@ -87,7 +71,7 @@ public class ControllerConta extends HttpServlet {
                 id = Integer.parseInt(request.getParameter("id"));
                 try
                 {
-                    usuarioController.excluir(id);
+                    contaController.excluir(id);
                 }
                 catch( Exception e)
                 {
@@ -98,10 +82,10 @@ public class ControllerConta extends HttpServlet {
                     rd.forward(request, response);
                 }                
 
-                ArrayList<Usuario> usuarioListaAtualizada;
-                usuarioListaAtualizada = usuarioController.getLista();
-                request.setAttribute("usuarioLista", usuarioListaAtualizada);
-                RequestDispatcher mostrarAtualizado = getServletContext().getRequestDispatcher("/ListaUsuario.jsp");
+                ArrayList<Conta> contaListaAtualizada;
+                contaListaAtualizada = contaController.getLista();
+                request.setAttribute("contaLista", contaListaAtualizada);
+                RequestDispatcher mostrarAtualizado = getServletContext().getRequestDispatcher("/ListaConta.jsp");
                 mostrarAtualizado.forward(request, response);
                 break;
                 
@@ -113,45 +97,28 @@ public class ControllerConta extends HttpServlet {
                 rd.forward(request, response);
                 break;
         }
-        }
     }
+    
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
                 
-        HttpSession sessionUsuario = request.getSession();
-        if(sessionUsuario.getAttribute("loginUsuario") == null)
-        {
-            RequestDispatcher validaLogin = getServletContext().getRequestDispatcher("/processarLogin");
-            validaLogin.forward(request, response);
-        }
-        else if(((Login)sessionUsuario.getAttribute("loginUsuario")).expiraLogin())
-        {
-            RequestDispatcher validaLogin = getServletContext().getRequestDispatcher("/processarLogin");
-            validaLogin.forward(request, response);
-        } 
-        else
-        {
-        
-        
-        Usuario usuarioAux = new Usuario();
-        usuarioAux.setId(Integer.parseInt(request.getParameter("id")));
-        usuarioAux.setNome(request.getParameter("nome"));
-        usuarioAux.setCpf(request.getParameter("cpf"));
-        usuarioAux.setSenha(request.getParameter("senha"));
-        usuarioAux.setSuspenso(request.getParameter("suspenso"));
-        usuarioAux.setTipo("correntista");
+        HttpSession sessionConta = request.getSession();
+        Conta contaAux = new Conta();
+        contaAux.setId(Integer.parseInt(request.getParameter("id")));
+        contaAux.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));
+        contaAux.setNome(request.getParameter("nome"));
+        contaAux.setNumBanco(request.getParameter("numBanco"));
+        contaAux.setNumAgencia(request.getParameter("numAgencia"));
+        contaAux.setNumContaCorrente(request.getParameter("numContaCorrente"));
 
-        UsuarioDAO UsuarioGrava = new UsuarioDAO();
+        ContaDAO contaGrava = new ContaDAO();
         String mensagem;
-        String servletDeRetorno = "ControllerUsuario?acao=mostrar";
+        String servletDeRetorno = "ControllerConta?acao=mostrar";
         
-        Validador usuarioValidado = new Validador(usuarioAux.getNome(), 
-                usuarioAux.getCpf(), usuarioAux.getSenha(), usuarioAux.getStatus());
-        
-        if(!(usuarioValidado.validaUsuario()))
+        if(!(contaAux.validaConta()))
         {
             mensagem = "Erro!Dados inválidos.";
             request.setAttribute("mensagem", mensagem);
@@ -163,12 +130,12 @@ public class ControllerConta extends HttpServlet {
         
         try 
         {            
-            if (UsuarioGrava.gravar(usuarioAux)) 
+            if (contaGrava.gravar(contaAux)) 
             {
-                mensagem = "Usuário gravado com sucesso!";
+                mensagem = "Conta cadastrada com sucesso!";
             } else 
             {
-                mensagem = "Erro ao gravar usuário!";
+                mensagem = "Erro ao cadastrar conta!";
             }
 
             request.setAttribute("mensagem", mensagem);
@@ -179,7 +146,7 @@ public class ControllerConta extends HttpServlet {
         } 
         catch (Exception e) 
         {            
-            mensagem = "Erro ao gravar usuário!";
+            mensagem = "Erro ao gravar conta!";
             request.setAttribute("mensagem", mensagem);
             request.setAttribute("servletDeRetorno", servletDeRetorno);
             RequestDispatcher rd = request.getRequestDispatcher("/Mensagem.jsp");
@@ -191,4 +158,3 @@ public class ControllerConta extends HttpServlet {
     }
     
 
-}
