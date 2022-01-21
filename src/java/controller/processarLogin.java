@@ -97,11 +97,22 @@ public class processarLogin extends HttpServlet
             try
             {
                 Usuario usuarioLogado = usuarioDAO.getUsuarioPorLogin(cpf, senha);
-                Login loginUsuario = new Login(usuarioLogado);
-                HttpSession sessionUsuario = request.getSession();
-                sessionUsuario.setAttribute("loginUsuario", loginUsuario);
-                RequestDispatcher usuarioEncaminhar = getServletContext().getRequestDispatcher("/area_restritaUser.jsp");
-                usuarioEncaminhar.forward(request, response);
+                if(usuarioLogado.getStatus() == "S")
+                {
+                    mensagem = "Usuário suspenso! Contate o administrador.";
+                    request.setAttribute("mensagem", mensagem);
+                    request.setAttribute("servletDeRetorno", servletDeRetorno);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");
+                    rd.forward(request, response); 
+                }
+                else
+                {
+                    Login loginUsuario = new Login(usuarioLogado);
+                    HttpSession sessionUsuario = request.getSession();
+                    sessionUsuario.setAttribute("loginUsuario", loginUsuario);
+                    RequestDispatcher usuarioEncaminhar = getServletContext().getRequestDispatcher("/area_restritaUSER.jsp");
+                    usuarioEncaminhar.forward(request, response); 
+                }                
             }
             catch (PesquisaNaoEncontradaException e)
             {
