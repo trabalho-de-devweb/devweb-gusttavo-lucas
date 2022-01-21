@@ -7,16 +7,13 @@
 <script type="text/javascript">
             const mudaBotaoSuspender = function(status, ind, id) {
                 const botaoSuspender = document.getElementById(`botaoSuspender-` + ind);
-                console.log(botaoSuspender);
                 
                 if (status === 'N') {
-                    console.log("if");
                     const link_suspender = "ControllerUsuario?acao=suspender&id=" + id;
                     botaoSuspender.setAttribute("class", "btn btn-danger float-right");
                     botaoSuspender.setAttribute("href", link_suspender);
                     botaoSuspender.textContent = "Suspender";
                 } else {
-                    console.log("else");
                     const link_ativar = "ControllerUsuario?acao=ativar&id=" + id;
                     botaoSuspender.setAttribute("class", "btn btn-success float-right");
                     botaoSuspender.setAttribute("href", link_ativar);
@@ -100,9 +97,7 @@
                             <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a>
                             <a href="<%=link_suspender%>" style="" class="btn btn-outline-secondary float-right btnSuspender" id="">Suspender</a>
                             <script type="text/javascript">
-                                console.log(<%=i%>);
                                 document.querySelector('.btnSuspender').id = 'botaoSuspender-' + <%=i%>;
-                                console.log("<%= aux.getStatus() %>");
                                 status = "<%= aux.getStatus() %>";
                                 mudaBotaoSuspender(status, <%=i%>, <%=aux.getId()%>);
                             </script>
