@@ -2,7 +2,6 @@ package controller;
 
 import aplicacao.Categoria;
 import aplicacao.Login;
-import aplicacao.Usuario;
 import aplicacao.Validador;
 import java.io.IOException;
 import java.util.ArrayList;
