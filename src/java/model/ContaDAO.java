@@ -30,7 +30,7 @@ public class ContaDAO {
         ArrayList<Conta> resultado = new ArrayList<>();
         try 
         {            
-            String sql = "select * from contas where id= ?";
+            String sql = "select * from contas where id_usuario= ?";
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setInt(1, id);
             
@@ -66,7 +66,7 @@ public class ContaDAO {
                 Conta contaEncontrada = new Conta();
                 contaEncontrada.setId(rs.getInt("id"));
                 contaEncontrada.setIdUsuario(rs.getInt("id_usuario"));
-                contaEncontrada.setNome(rs.getString("nome"));
+                contaEncontrada.setNome(rs.getString("nome_conta"));
                 contaEncontrada.setNumBanco(rs.getString("banco"));
                 contaEncontrada.setNumAgencia(rs.getString("agencia"));
                 contaEncontrada.setNumContaCorrente(rs.getString("conta_corrente"));

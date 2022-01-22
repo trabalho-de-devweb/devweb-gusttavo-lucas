@@ -147,7 +147,7 @@ public class Conta
     {
         String numContaFormatada = removeMascaraConta(numContaCorrente);
         
-        if (numContaFormatada.length() != 6)
+        if (numContaFormatada.length() != 5)
         {
             return false;
         } 
@@ -168,6 +168,6 @@ public class Conta
     
     private static String removeMascaraConta(String conta)
     {
-        return conta.substring(0, 4) + conta.substring(5, 7);
+        return conta.substring(0, 4) + conta.substring(5, 6);
     }
 }

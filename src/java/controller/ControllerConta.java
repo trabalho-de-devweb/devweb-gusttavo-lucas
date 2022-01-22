@@ -3,6 +3,7 @@ package controller;
 import aplicacao.PesquisaNaoEncontradaException;
 import aplicacao.Conta;
 import aplicacao.Usuario;
+import aplicacao.Login;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -28,27 +29,19 @@ public class ControllerConta extends HttpServlet {
         ContaDAO contaController = new ContaDAO();
         UsuarioDAO usuarioController = new UsuarioDAO();
         String acao = (String) request.getParameter("acao");
+        ArrayList<Conta> contaLista;
         Conta contaAtributo;
         int id;
 
         switch (acao) {
             case "mostrar":
-                try {
-                    String cpf = (String) request.getSession().getAttribute("cpf");
-                    String senha = (String) request.getSession().getAttribute("senha");
-                    Usuario usuarioLogado;
-                    usuarioLogado = usuarioController.getUsuarioPorLogin(cpf, senha);
-                    request.setAttribute("usuarioLogado", usuarioLogado);
-                    RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaConta.jsp");
-                    mostrar.forward(request, response);
-                    break;
-                } catch (PesquisaNaoEncontradaException e) {
-                    mensagem = "Pesquisa não encontrada!";
-                    request.setAttribute("mensagem", mensagem);
-                    request.setAttribute("servletDeRetorno", servletDeRetorno);
-                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");
-                    rd.forward(request, response);
-                }
+                Login usuarioLogin = (Login) request.getSession().getAttribute("loginUsuario");
+                int idUsuarioLogado = usuarioLogin.getUsuario().getId();
+                contaLista = contaController.getLista(idUsuarioLogado);
+                request.setAttribute("contaLista", contaLista);
+                RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaConta.jsp");
+                mostrar.forward(request, response);
+                break;
                 
             case "incluir":
                 
@@ -120,9 +113,10 @@ public class ControllerConta extends HttpServlet {
     {
                 
         HttpSession sessionConta = request.getSession();
+        Login loginUsuario = (Login) sessionConta.getAttribute("loginUsuario");
         Conta contaAux = new Conta();
         contaAux.setId(Integer.parseInt(request.getParameter("id")));
-        contaAux.setIdUsuario(Integer.parseInt(request.getParameter("idUsuario")));
+        contaAux.setIdUsuario(loginUsuario.getUsuario().getId());
         contaAux.setNome(request.getParameter("nome"));
         contaAux.setNumBanco(request.getParameter("numBanco"));
         contaAux.setNumAgencia(request.getParameter("numAgencia"));

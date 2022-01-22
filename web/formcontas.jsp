@@ -1,3 +1,5 @@
+<%@page import="aplicacao.Conta"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <html lang="pt-br">
@@ -18,23 +20,24 @@
                     <div class="py-4 text-center">
                         <h2>Formulário de Contas</h2>
                     </div>
-                    <form method="POST" action="">                        
+                    <form method="POST" action="ControllerConta">
+                        <input type="hidden" name="id" id="id" value="<%= ((Conta) request.getAttribute("contaAtributo")).getId() %>">
                         <div class="form-group">
                             <label for="nomeContaCorrente">Nome:</label>
-                            <input type="text" class="form-control" id="nomeContaCorrente">
+                            <input type="text" class="form-control" id="nomeContaCorrente" name="nome" value="<%= ((Conta)request.getAttribute("contaAtributo")).getNome() %>">
                         </div>
                         <div class="form-group">
                             <label for="numeroBanco">Número do banco:</label>
-                            <input type="text" class="form-control" id="numeroBanco">
+                            <input type="text" class="form-control" id="numeroBanco" name="numBanco" value="<%= ((Conta)request.getAttribute("contaAtributo")).getNumBanco() %>">
                             <small id="numeroBancoHelp" class="form-text text-muted">Exemplo: 001 – Banco do Brasil, 341 – Itaú, etc.</small>
                         </div>
                         <div class="form-group">
                             <label for="numeroAgencia">Agência:</label>
-                            <input type="text" class="form-control" id="numeroAgencia">
+                            <input type="text" class="form-control" id="numeroAgencia" name="numAgencia" value="<%= ((Conta)request.getAttribute("contaAtributo")).getNumAgencia() %>">
                         </div>
                         <div class="form-group">
                             <label for="numeroContaCorrente">Conta corrente:</label>
-                            <input type="text" class="form-control" id="numeroContaCorrente">
+                            <input type="text" class="form-control" id="numeroContaCorrente" name="numContaCorrente" value="<%= ((Conta)request.getAttribute("contaAtributo")).getNumContaCorrente() %>">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block my-4" value="Enviar">
                     </form>
@@ -42,10 +45,7 @@
             </div>
         </div>
 
-        <script src="jquery-3.4.1.min.js"></script>
-        <script src="jquery.mask.min.js"></script>
-        <script src="popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <%@include file="scriptsBasicos.html" %>
         
     </body>
     

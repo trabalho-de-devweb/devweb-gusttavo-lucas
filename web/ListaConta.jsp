@@ -9,11 +9,6 @@
     </head>
     <body>
         <jsp:include page="MenuUSER.jsp" />
-        
-        <% 
-            Usuario usuarioLogado = (Usuario) request.getAttribute("usuarioLogado");
-            int idUsuario = usuarioLogado.getId();
-        %>
 
         <h1>Lista de Contas</h1>     
         <p></p>
