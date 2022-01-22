@@ -110,6 +110,8 @@ public class processarLogin extends HttpServlet
                     Login loginUsuario = new Login(usuarioLogado);
                     HttpSession sessionUsuario = request.getSession();
                     sessionUsuario.setAttribute("loginUsuario", loginUsuario);
+                    sessionUsuario.setAttribute("cpf", cpf);
+                    sessionUsuario.setAttribute("senha", senha);
                     RequestDispatcher usuarioEncaminhar = getServletContext().getRequestDispatcher("/area_restritaUSER.jsp");
                     usuarioEncaminhar.forward(request, response); 
                 }                

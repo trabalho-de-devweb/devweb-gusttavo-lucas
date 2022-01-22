@@ -1,6 +1,8 @@
 package controller;
 
+import aplicacao.PesquisaNaoEncontradaException;
 import aplicacao.Conta;
+import aplicacao.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import model.ContaDAO;
+import model.UsuarioDAO;
 
 @WebServlet(name = "ControllerConta", urlPatterns = {"/ControllerConta"})
 public class ControllerConta extends HttpServlet {
@@ -24,18 +27,29 @@ public class ControllerConta extends HttpServlet {
         String mensagem;
         String servletDeRetorno = "ControllerConta?acao=mostrar";
         ContaDAO contaController = new ContaDAO();
+        UsuarioDAO usuarioController = new UsuarioDAO();
         String acao = (String) request.getParameter("acao");
         Conta contaAtributo;
         int id;
 
         switch (acao) {
             case "mostrar":
-                ArrayList<Conta> contaLista;
-                contaLista = contaController.getLista();
-                request.setAttribute("contaLista", contaLista);
-                RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaConta.jsp");
-                mostrar.forward(request, response);
-                break;
+                try {
+                    String cpf = (String) request.getSession().getAttribute("cpf");
+                    String senha = (String) request.getSession().getAttribute("senha");
+                    Usuario usuarioLogado;
+                    usuarioLogado = usuarioController.getUsuarioPorLogin(cpf, senha);
+                    request.setAttribute("usuarioLogado", usuarioLogado);
+                    RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaConta.jsp");
+                    mostrar.forward(request, response);
+                    break;
+                } catch (PesquisaNaoEncontradaException e) {
+                    mensagem = "Pesquisa não encontrada!";
+                    request.setAttribute("mensagem", mensagem);
+                    request.setAttribute("servletDeRetorno", servletDeRetorno);
+                    RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");
+                    rd.forward(request, response);
+                }
                 
             case "incluir":
                 
@@ -48,9 +62,10 @@ public class ControllerConta extends HttpServlet {
 
             case "editar":
                 
-                id = Integer.parseInt(request.getParameter("id"));
                 try
                 {
+                    id = Integer.parseInt(request.getParameter("id"));
+                    
                     contaAtributo = contaController.getContaPorID(id);
                     request.setAttribute("contaAtributo", contaAtributo);
                     RequestDispatcher rs = request.getRequestDispatcher("/formcontas.jsp");
@@ -67,8 +82,8 @@ public class ControllerConta extends HttpServlet {
                 break;
 
             case "excluir":
-
                 id = Integer.parseInt(request.getParameter("id"));
+                
                 try
                 {
                     contaController.excluir(id);
@@ -83,7 +98,7 @@ public class ControllerConta extends HttpServlet {
                 }                
 
                 ArrayList<Conta> contaListaAtualizada;
-                contaListaAtualizada = contaController.getLista();
+                contaListaAtualizada = contaController.getLista(id);
                 request.setAttribute("contaLista", contaListaAtualizada);
                 RequestDispatcher mostrarAtualizado = getServletContext().getRequestDispatcher("/ListaConta.jsp");
                 mostrarAtualizado.forward(request, response);

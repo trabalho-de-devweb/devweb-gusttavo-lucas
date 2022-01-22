@@ -26,17 +26,21 @@ public class ContaDAO {
         }
     }
     
-    public ArrayList<Conta> getLista() {
+    public ArrayList<Conta> getLista(int id) {
         ArrayList<Conta> resultado = new ArrayList<>();
         try 
         {            
-            Statement stmt = conexao.createStatement();
-            ResultSet rs = stmt.executeQuery("select * from contas");
+            String sql = "select * from contas where id= ?";
+            PreparedStatement ps = conexao.prepareStatement(sql);
+            ps.setInt(1, id);
+            
+            ResultSet rs = ps.executeQuery();
+            
             while( rs.next() ) 
             {
-                Conta contaLinha = new Conta(rs.getInt("id"), rs.getInt("idUsuario"),
-                        rs.getString("nome"), rs.getString("numBanco"), 
-                        rs.getString("numAgencia"), rs.getString("numContaCorrente"));
+                Conta contaLinha = new Conta(rs.getInt("id"), rs.getInt("id_usuario"),
+                        rs.getString("nome_conta"), rs.getString("banco"), 
+                        rs.getString("agencia"), rs.getString("conta_corrente"));
                 resultado.add(contaLinha);
             }
         } catch( SQLException e ) 
