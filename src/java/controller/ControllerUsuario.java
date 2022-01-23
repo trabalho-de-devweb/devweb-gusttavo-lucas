@@ -184,7 +184,7 @@ public class ControllerUsuario extends HttpServlet {
         else
         {
         
-        
+        request.setCharacterEncoding("UTF-8");
         Usuario usuarioAux = new Usuario();
         usuarioAux.setId(Integer.parseInt(request.getParameter("id")));
         usuarioAux.setNome(request.getParameter("nome"));

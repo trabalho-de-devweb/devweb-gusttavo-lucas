@@ -18,7 +18,6 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">ID do Usuário</th>
                         <th scope="col">Nome da Conta</th>
                         <th scope="col">Código do Banco</th>
                         <th scope="col">Agência</th>
@@ -35,13 +34,12 @@
                             String link_excluir = "ControllerConta?acao=excluir&id="+aux.getId();
                     %>
                     <tr>
-                        <td><%=aux.getIdUsuario()%></td>
                         <td><%=aux.getNome()%></td>
                         <td><%=aux.getNumBanco()%></td>
                         <td><%=aux.getNumAgencia()%></td>
                         <td><%=aux.getNumContaCorrente()%></td>
                         <td>
-                            <a href="<%=link_excluir%>" class="btn btn-outline-danger float-right">Excluir</a> 
+                            <a href="<%=link_excluir%>" onclick="return alerta()" class="btn btn-outline-danger float-right">Excluir</a> 
                             <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a> 
                         </td>
 
@@ -54,6 +52,21 @@
         </div>
 
     <%@include file="scriptsBasicos.html" %>
+    
+    <script>
+    function alerta()
+    {
+        var verificacao = confirm("Tem certeza que deseja excluir?");
+        if(verificacao)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+    </script>
         
     </body>
 </html>

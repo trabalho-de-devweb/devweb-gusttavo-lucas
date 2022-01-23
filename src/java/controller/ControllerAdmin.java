@@ -123,6 +123,7 @@ public class ControllerAdmin extends HttpServlet {
         else
         {
         
+        request.setCharacterEncoding("UTF-8");
         Usuario adminAux = new Usuario();
         adminAux.setId(Integer.parseInt(request.getParameter("id")));
         adminAux.setNome(request.getParameter("nome"));

@@ -116,12 +116,13 @@ public class Validador
     private boolean isNome(String nome) 
     {
       char[] charArray = nome.toCharArray();
+      String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúû";
       for (int i = 0; i < charArray.length; i++) 
       {
          char ch = charArray[i];
          if(ch != ' ')
          {
-             if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')))) 
+             if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) != -1))) 
             {
                return false;
             }

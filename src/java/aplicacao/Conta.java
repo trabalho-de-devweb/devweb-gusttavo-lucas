@@ -110,19 +110,22 @@ public class Conta
     
     private boolean isNome(String nome) 
     {
-      char[] charArray = nome.toCharArray();
-      for (int i = 0; i < charArray.length; i++) 
-      {
-         char ch = charArray[i];
-         if(ch != ' ')
-         {
-             if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')))) 
+        char[] charArray = nome.toCharArray();
+        String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúû";
+        char ch;
+        for (int i = 0; i < charArray.length; i++) 
+        {
+            ch = charArray[i];
+            if(ch != ' ')
             {
-               return false;
+               if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) != -1))) 
+               {
+                    System.out.println((int)ch);
+                    return false;
+               }
             }
-         }
-      }
-      return true;
+        }
+        return true;
    }
     
     private boolean isNumBanco(String numBanco)

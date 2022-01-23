@@ -1,26 +1,7 @@
 <%@page import="aplicacao.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
-<%@ page import="aplicacao.Usuario" %>
 <!DOCTYPE html>
-
-<script type="text/javascript">
-            const mudaBotaoSuspender = function(status, ind, id) {
-                const botaoSuspender = document.getElementById(`botaoSuspender-` + ind);
-                
-                if (status === 'N') {
-                    const link_suspender = "ControllerUsuario?acao=suspender&id=" + id;
-                    botaoSuspender.setAttribute("class", "btn btn-danger float-right");
-                    botaoSuspender.setAttribute("href", link_suspender);
-                    botaoSuspender.textContent = "Suspender";
-                } else {
-                    const link_ativar = "ControllerUsuario?acao=ativar&id=" + id;
-                    botaoSuspender.setAttribute("class", "btn btn-success float-right");
-                    botaoSuspender.setAttribute("href", link_ativar);
-                    botaoSuspender.textContent = "Ativar";
-                }
-            };
-</script>
 
 <html>
     <head>
@@ -49,15 +30,12 @@
             else
             {
         %>
-
-        
-
-            <jsp:include page="MenuADM.jsp" />
-
-                   
-            <h1>Lista de Usuarios</h1>     
+   
+            <jsp:include page="MenuUSER.jsp" />
+                  
+            <h1>Lista de Lançamentos</h1>     
             <p></p>
-            <a href="ControllerUsuario?acao=incluir" class="btn btn-outline-primary">Incluir</a>
+            <a href="ControllerLancamento?acao=incluir" class="btn btn-outline-primary">Incluir</a>
             <p></p>
             <div class="table-responsive">
                 <table class="table table-striped">

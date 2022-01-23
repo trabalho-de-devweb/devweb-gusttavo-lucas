@@ -58,7 +58,7 @@
                         %>
                         <tr>
                             <td><%=aux.getDescricao()%></td>
-                            <td><a href="<%=link_excluir%>" class="btn btn-outline-danger float-right">Excluir</a> <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a> 
+                            <td><a href="<%=link_excluir%>" onclick="return alerta()" class="btn btn-outline-danger float-right">Excluir</a> <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a> 
                             </td> 
                            
                         </tr>
@@ -70,6 +70,21 @@
             </div>
         
         <%@include file="scriptsBasicos.html" %>
+        
+        <script>
+        function alerta()
+        {
+            var verificacao = confirm("Tem certeza que deseja excluir?");
+            if(verificacao)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        </script>
         
         <%
         }

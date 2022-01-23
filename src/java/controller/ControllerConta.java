@@ -1,8 +1,6 @@
 package controller;
 
-import aplicacao.PesquisaNaoEncontradaException;
 import aplicacao.Conta;
-import aplicacao.Usuario;
 import aplicacao.Login;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -82,7 +80,7 @@ public class ControllerConta extends HttpServlet {
                 }
                 catch( Exception e)
                 {
-                    mensagem = "Erro! Usuário tem contas cadastradas no sistema, necessária a previa exclusão das mesmas.";
+                    mensagem = "Erro! Conta tem lançamentos cadastrados no sistema, necessária a previa exclusão dos mesmos.";
                     request.setAttribute("mensagem", mensagem);
                     request.setAttribute("servletDeRetorno", servletDeRetorno);
                     RequestDispatcher rd = request.getRequestDispatcher("/Mensagem.jsp");
@@ -111,7 +109,8 @@ public class ControllerConta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
-                
+        
+        request.setCharacterEncoding("UTF-8");
         HttpSession sessionConta = request.getSession();
         Login loginUsuario = (Login) sessionConta.getAttribute("loginUsuario");
         Conta contaAux = new Conta();

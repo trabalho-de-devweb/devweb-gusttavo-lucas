@@ -20,7 +20,7 @@
                     <div class="py-4 text-center">
                         <h2>Formulário de Contas</h2>
                     </div>
-                    <form method="POST" action="ControllerConta">
+                    <form method="POST" action="ControllerConta" accept-charset="utf-8">
                         <input type="hidden" name="id" id="id" value="<%= ((Conta) request.getAttribute("contaAtributo")).getId() %>">
                         <div class="form-group">
                             <label for="nomeContaCorrente">Nome:</label>

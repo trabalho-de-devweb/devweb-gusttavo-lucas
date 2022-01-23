@@ -132,8 +132,8 @@ public class ControllerCategoria extends HttpServlet {
         else
         {
         
-        Categoria categoriaAux = new Categoria();
-        
+        request.setCharacterEncoding("UTF-8");
+        Categoria categoriaAux = new Categoria();        
         categoriaAux.setId(Integer.parseInt(request.getParameter("id")));
         categoriaAux.setDescricao(request.getParameter("descricao"));
 
