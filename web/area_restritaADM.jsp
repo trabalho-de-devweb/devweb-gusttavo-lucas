@@ -5,6 +5,7 @@
 <html>
     <head>
         <%@include file="cabecalho.html" %>
+        <title>Área Restrita do Administrador</title>
     </head>
     <body class="bg-light">
         

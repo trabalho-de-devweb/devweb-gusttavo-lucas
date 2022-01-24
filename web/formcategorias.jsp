@@ -49,7 +49,7 @@
                         
                         <div class="form-group">
                             <label for="descricao">Descrição: </label>
-                            <input type="text" class="form-control" name="descricao" id="descricao" value="<%= aux.getDescricao() %>">
+                            <input required type="text" class="form-control" name="descricao" id="descricao" value="<%= aux.getDescricao() %>">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block my-4" value="Enviar">
                     </form>

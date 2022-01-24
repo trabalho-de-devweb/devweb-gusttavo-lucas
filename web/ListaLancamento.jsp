@@ -1,3 +1,4 @@
+<%@page import="aplicacao.Lancamento"%>
 <%@page import="aplicacao.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
@@ -6,12 +7,13 @@
 <html>
     <head>
         <%@include file="cabecalho.html" %>
+        <title>Listagem de Lançamentos</title>
     </head>
     <body>
         
         <%
             HttpSession sessionUsuario = request.getSession();
-            if(sessionUsuario.getAttribute("loginAdmin") == null)
+            if(sessionUsuario.getAttribute("loginUsuario") == null)
             {
         %>
                 <script>
@@ -19,7 +21,7 @@
                 </script>
         <%
             }
-            else if(((Login)sessionUsuario.getAttribute("loginAdmin")).expiraLogin())
+            else if(((Login)sessionUsuario.getAttribute("loginUsuario")).expiraLogin())
             {
         %>
                 <script>
@@ -35,50 +37,44 @@
                   
             <h1>Lista de Lançamentos</h1>     
             <p></p>
-            <a href="ControllerLancamento?acao=incluir" class="btn btn-outline-primary">Incluir</a>
+            <%
+                String linkincluir = "ControllerLancamento?acao=incluir&idConta="
+                                        + request.getParameter("idConta");
+            %>
+            <a href="<%=linkincluir%>" class="btn btn-outline-primary">Incluir</a>
             <p></p>
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th scope="col">Nome</th>
-                            <th scope="col">CPF</th>
-                            <th scope="col">Senha</th>
-                            <th scope="col">Suspenso</th>
+                            <th scope="col">Categoria</th>
+                            <th scope="col">Valor</th>
+                            <th scope="col">Operação</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Descrição</th>
                             <th scope="col"><div class="float-right">Ações</div><br></th>
                         </tr>
                     </thead> 
                     <tbody>
                         <%
-                            ArrayList<Usuario> ListaUsuario = (ArrayList<Usuario>) request.getAttribute("usuarioLista"); %>
+                            ArrayList<Lancamento> ListaLancamento = (ArrayList<Lancamento>) request.getAttribute("lancamentoLista"); %>
                             <script type="text/javascript">let status = ""</script>
                             <%
-                            for (int i = 0; i < ListaUsuario.size(); i++) {
+                            for (int i = 0; i < ListaLancamento.size(); i++) {
                                 
-                                Usuario aux = ListaUsuario.get(i);
-                                String link_ativar = "ControllerUsuario?acao=ativar&id="+aux.getId();
-                                String link_suspender = "ControllerUsuario?acao=suspender&id="+aux.getId();
-                                String link_editar = "ControllerUsuario?acao=editar&id="+aux.getId();
-                                String link_excluir = "ControllerUsuario?acao=excluir&id="+aux.getId();%>
-                                <script type='text/javascript'>
-                                    
-                                </script>
-                         
-                        
+                                Lancamento aux = ListaLancamento.get(i);
+                                String link_editar = "ControllerLancamento?acao=editar&id="+aux.getId()+"&idConta="+request.getParameter("idConta");
+                                String link_excluir = "ControllerLancamento?acao=excluir&id="+aux.getId()+"&idConta="+request.getParameter("idConta");%>
+                            
                         <tr>
-                            <td><%=aux.getNome()%></td>
-                            <td><%=aux.getCpf()%></td> 
-                            <td><%=aux.getSenha()%></td>
-                            <td><%=aux.getStatus()%></td> 
+                            <td><%=aux.getCategoriaDescricao()%></td>
+                            <td><%=aux.getValor()%></td> 
+                            <td><%=aux.getOperacao()%></td>
+                            <td><%=aux.getData()%></td>
+                            <td><%=aux.getDescricao()%></td>
                             <td>
-                            <a href="<%=link_excluir%>" onclick="return alerta()" class="btn btn-outline-danger float-right">Excluir</a> 
-                            <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a>
-                            <a href="<%=link_suspender%>" style="" class="btn btn-outline-secondary float-right btnSuspender" id="">Suspender</a>
-                            <script type="text/javascript">
-                                document.querySelector('.btnSuspender').id = 'botaoSuspender-' + <%=i%>;
-                                status = "<%= aux.getStatus() %>";
-                                mudaBotaoSuspender(status, <%=i%>, <%=aux.getId()%>);
-                            </script>
+                                <a href="<%=link_excluir%>" onclick="return alerta()" class="btn btn-outline-danger float-right">Excluir</a> 
+                                <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a>
                             </td> 
                            
                         </tr>

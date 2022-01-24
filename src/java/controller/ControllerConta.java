@@ -30,11 +30,12 @@ public class ControllerConta extends HttpServlet {
         ArrayList<Conta> contaLista;
         Conta contaAtributo;
         int id;
+        Login usuarioLogin = (Login) request.getSession().getAttribute("loginUsuario");
+        int idUsuarioLogado = usuarioLogin.getUsuario().getId();
 
         switch (acao) {
             case "mostrar":
-                Login usuarioLogin = (Login) request.getSession().getAttribute("loginUsuario");
-                int idUsuarioLogado = usuarioLogin.getUsuario().getId();
+                
                 contaLista = contaController.getLista(idUsuarioLogado);
                 request.setAttribute("contaLista", contaLista);
                 RequestDispatcher mostrar = getServletContext().getRequestDispatcher("/ListaConta.jsp");
@@ -86,9 +87,9 @@ public class ControllerConta extends HttpServlet {
                     RequestDispatcher rd = request.getRequestDispatcher("/Mensagem.jsp");
                     rd.forward(request, response);
                 }                
-
+                
                 ArrayList<Conta> contaListaAtualizada;
-                contaListaAtualizada = contaController.getLista(id);
+                contaListaAtualizada = contaController.getLista(idUsuarioLogado);
                 request.setAttribute("contaLista", contaListaAtualizada);
                 RequestDispatcher mostrarAtualizado = getServletContext().getRequestDispatcher("/ListaConta.jsp");
                 mostrarAtualizado.forward(request, response);

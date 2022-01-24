@@ -7,7 +7,7 @@
     
     <head>
         <%@include file="cabecalho.html" %>
-      <title>Formulário de Administrador</title>
+        <title>Formulário de Administrador</title>
     </head>
     
     <body class="bg-light">
@@ -45,21 +45,21 @@
                         <div class="form-group row">
                             <label class="col-sm-2" for="nome">Nome:</label>
                             <div class="col-sm-10">
-                                   <input type="text" class="form-control" name="nome" id="nome" value="<%= ((Usuario)request.getAttribute("adminAtributo")).getNome() %>">
+                                   <input required type="text" class="form-control" name="nome" id="nome" value="<%= ((Usuario)request.getAttribute("adminAtributo")).getNome() %>">
                             </div>
                         </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2" for="cpf">CPF:</label>
                             <div class="col-sm-10">
-                                   <input type="text" class="form-control" name="cpf" id="cpf" value="<%= ((Usuario)request.getAttribute("adminAtributo")).getCpf() %>">
+                                   <input required type="text" class="form-control" name="cpf" id="cpf" value="<%= ((Usuario)request.getAttribute("adminAtributo")).getCpf() %>">
                             </div>
                         </div>  
 
                         <div class="form-group row">
                             <label class="col-sm-2" for="senha">Senha:</label>
                             <div class="col-sm-10">
-                                   <input type="password" class="form-control" name="senha" id="senha">
+                                   <input required type="password" class="form-control" name="senha" id="senha">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block my-4">Enviar</button>

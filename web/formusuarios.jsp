@@ -44,19 +44,19 @@
                         <input type="hidden" name="id" id="id" value="<%= ((Usuario)request.getAttribute("usuarioAtributo")).getId() %>">
                         <div class="form-group">
                             <label for="nome">Nome:</label>
-                            <input type="text" class="form-control" name="nome" id="nome" value="<%= ((Usuario)request.getAttribute("usuarioAtributo")).getNome() %>">
+                            <input required type="text" class="form-control" name="nome" id="nome" value="<%= ((Usuario)request.getAttribute("usuarioAtributo")).getNome() %>">
                         </div>
                         <div class="form-group">
                             <label for="cpf">CPF:</label>
-                            <input type="text" class="form-control" name="cpf" id="cpf" value="<%= ((Usuario)request.getAttribute("usuarioAtributo")).getCpf() %>">
+                            <input required type="text" class="form-control" name="cpf" id="cpf" value="<%= ((Usuario)request.getAttribute("usuarioAtributo")).getCpf() %>">
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha:</label>
-                            <input type="password" class="form-control" name="senha" id="senha">
+                            <input required type="password" class="form-control" name="senha" id="senha">
                         </div>
                         <div class="form-group">
                             <label for="suspenso">Suspenso:</label>
-                            <input type="text" class="form-control" name="suspenso" id="suspenso" value="<%= ((Usuario)request.getAttribute("usuarioAtributo")).getStatus() %>">
+                            <input required type="text" class="form-control" name="suspenso" id="suspenso" value="<%= ((Usuario)request.getAttribute("usuarioAtributo")).getStatus() %>">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block my-4">Enviar</button>
                     </form>

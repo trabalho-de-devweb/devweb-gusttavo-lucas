@@ -7,6 +7,7 @@
 <html>
     <head>
         <%@include file="cabecalho.html" %>
+        <title>Listagem de Administradores</title>
     </head>
     <body>
         

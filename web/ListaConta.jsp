@@ -6,6 +6,7 @@
 <html>
     <head>
         <%@include file="cabecalho.html" %>
+        <title>Listagem de Contas</title>
     </head>
     <body>
         <jsp:include page="MenuUSER.jsp" />
@@ -30,6 +31,7 @@
                         ArrayList<Conta> ListaConta = (ArrayList<Conta>) request.getAttribute("contaLista");
                         for (int i = 0; i < ListaConta.size(); i++) {
                             Conta aux = ListaConta.get(i);
+                            String link_lancamentos = "ControllerLancamento?acao=mostrar&idConta="+aux.getId();
                             String link_editar = "ControllerConta?acao=editar&id="+aux.getId();
                             String link_excluir = "ControllerConta?acao=excluir&id="+aux.getId();
                     %>
@@ -40,7 +42,8 @@
                         <td><%=aux.getNumContaCorrente()%></td>
                         <td>
                             <a href="<%=link_excluir%>" onclick="return alerta()" class="btn btn-outline-danger float-right">Excluir</a> 
-                            <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a> 
+                            <a href="<%=link_editar%>" class="btn btn-outline-secondary float-right">Editar</a>
+                            <a href="<%=link_lancamentos%>" class="btn btn-outline-primary float-right">Lançamentos</a>
                         </td>
 
                     </tr>

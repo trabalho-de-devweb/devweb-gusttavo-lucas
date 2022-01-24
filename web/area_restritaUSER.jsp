@@ -5,6 +5,7 @@
 <html>
     <head>
         <%@include file="cabecalho.html" %>
+        <title>Área Restrita do Usuário</title>
     </head>
     <body class="bg-light">
         

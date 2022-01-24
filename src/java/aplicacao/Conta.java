@@ -7,10 +7,10 @@ public class Conta
 {
     private int id;
     private int idUsuario;
-    private String nome;
-    private String numBanco;
-    private String numAgencia;
-    private String numContaCorrente;
+    private String nome = "";
+    private String numBanco = "";
+    private String numAgencia = "";
+    private String numContaCorrente = "";
 
     public Conta(int id, int idUsuario, String nome, String numBanco, String numAgencia, 
                     String numContaCorrente) 

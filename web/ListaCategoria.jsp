@@ -6,6 +6,7 @@
 <html>
     <head>
         <%@include file="cabecalho.html" %>
+        <title>Listagem de Categorias</title>
     </head>
     <body>
 
