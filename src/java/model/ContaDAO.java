@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import aplicacao.Conta;
 import aplicacao.PesquisaNaoEncontradaException;
@@ -34,13 +33,16 @@ public class ContaDAO {
             PreparedStatement ps = conexao.prepareStatement(sql);
             ps.setInt(1, id);
             
-            ResultSet rs = ps.executeQuery();
-            
+            ResultSet rs = ps.executeQuery();            
             while( rs.next() ) 
             {
-                Conta contaLinha = new Conta(rs.getInt("id"), rs.getInt("id_usuario"),
-                        rs.getString("nome_conta"), rs.getString("banco"), 
-                        rs.getString("agencia"), rs.getString("conta_corrente"));
+                Conta contaLinha = new Conta();
+                contaLinha.setId(rs.getInt("id"));
+                contaLinha.setIdUsuario(rs.getInt("id_usuario"));
+                contaLinha.setNome(rs.getString("nome_conta"));
+                contaLinha.setNumAgencia(rs.getString("agencia"));
+                contaLinha.setNumBanco(rs.getString("banco"));
+                contaLinha.setNumContaCorrente(rs.getString("conta_corrente"));                
                 resultado.add(contaLinha);
             }
         } catch( SQLException e ) 

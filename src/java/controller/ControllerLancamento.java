@@ -139,7 +139,7 @@ public class ControllerLancamento extends HttpServlet {
         lancamentoAux.setCategoriaDescricao(request.getParameter("descricaoCategoria"));
         lancamentoAux.setValor(Float.parseFloat(request.getParameter("valor")));
         lancamentoAux.setOperacao(request.getParameter("operacao"));
-        lancamentoAux.setData(request.getParameter("data"));
+        lancamentoAux.setDataInverte(request.getParameter("data"));
         lancamentoAux.setDescricao(request.getParameter("descricao"));
 
         LancamentoDAO lancamentoGrava = new LancamentoDAO();

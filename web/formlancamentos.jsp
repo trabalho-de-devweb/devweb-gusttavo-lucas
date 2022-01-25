@@ -48,7 +48,7 @@
                             <input type="hidden" name="idConta" id="idConta" value="<%=request.getParameter("idConta")%>">
                             <label for="descricaoCategoria">Categoria:</label>
                             <select required class="custom-select" id="descricaoCategoria" name="descricaoCategoria">
-                                <option selected>Escolha...</option>
+                                <option>Escolha...</option>
                                 <%
                                     ArrayList<Categoria> listaCategorias = (ArrayList<Categoria>) request.getAttribute("listaCategorias");
                                     String descricaoCatAux;
@@ -64,12 +64,12 @@
                         </div>
                         <div class="form-group">
                             <label for="valor">Valor:</label>
-                            <input required type="text" class="form-control money2" id="valor" name="valor">
+                            <input required type="text" class="form-control money2" id="valor" name="valor" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getValor() %>">
                         </div>
                         <div class="form-group">
                             <label for="operacao">Operação:</label>
                             <select required class="custom-select" id="operacao" name="operacao">
-                                <option selected>Escolha...</option>
+                                <option>Escolha...</option>
                                 <option value="C">Crédito</option>
                                 <option value="D">Débito</option>
                             </select>
@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-group">
                             <label for="descricao">Descrição:</label>
-                            <input required type="text" class="form-control" id="descricao" name="descricao">
+                            <input type="text" class="form-control" id="descricao" name="descricao">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block my-4" value="Enviar">
                     </form>
@@ -94,6 +94,36 @@
             $(document).ready(function()
             {
                 $('#valor').mask('0000000000.00', {reverse: true});
+                
+                var elementoSelect = document.getElementById("descricaoCategoria");
+                var teste = true;
+                for(let i = 0; i < elementoSelect.children.length; i++)
+                {
+                    if(myElement.children[i].value === "<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getOperacao()%>")
+                    {
+                        myElement.children[i].setAttribute("selected", "selected");
+                        teste = false;
+                    }
+                }
+                if(teste)
+                {
+                    myElement.children[0].setAttribute("selected", "selected");
+                }
+                
+                elementoSelect = document.getElementById("operacao");
+                teste = true;
+                for(let i = 0; i < elementoSelect.children.length; i++)
+                {
+                    if(myElement.children[i].value === "<%=((Lancamento) request.getAttribute("lancamentoAtributo")).getCategoriaDescricao()%>")
+                    {
+                        myElement.children[i].setAttribute("selected", "selected");
+                        teste = false;
+                    }
+                }
+                if(teste)
+                {
+                    myElement.children[0].setAttribute("selected", "selected");
+                }
             });
             
             

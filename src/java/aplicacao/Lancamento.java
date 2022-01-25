@@ -17,15 +17,8 @@ public class Lancamento
         this.id = id;
         this.categoriaDescricao = categoriaDescricao;
         this.valor = valor;
-        this.operacao = operacao;
-        
-        String aux = "";
-        for(int i=(data.length() - 1); i > 0; i--)
-        {
-           aux = aux + data.substring(i, i);
-        }        
-        this.data = aux;
-        
+        this.operacao = operacao; 
+        this.data = data;        
         this.descricao = descricao;
     }
 
@@ -89,11 +82,9 @@ public class Lancamento
     
     public String getDataInverte() 
     {
-        String aux = "";
-        for(int i=(this.data.length() - 1); i > 0; i--)
-        {
-           aux = aux + this.data.substring(i, i);
-        }
+        String aux;
+        String[] vet = data.split("/");
+        aux = vet[2] + "-" + vet[1] + "-" + vet[0];
         return aux;
     }
     
@@ -104,12 +95,9 @@ public class Lancamento
 
     public void setDataInverte(String data) 
     {
-        String aux = "";
-        for(int i=(data.length() - 1); i > 0; i--)
-        {
-           aux = aux + data.substring(i, i);
-        }
-        
+        String aux;
+        String[] vet = data.split("-");
+        aux = vet[2] + "/" + vet[1] + "/" + vet[0];
         this.data = aux;
     }
 

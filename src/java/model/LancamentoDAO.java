@@ -39,10 +39,13 @@ public class LancamentoDAO
             ResultSet rs = ps.executeQuery();
             while( rs.next() ) 
             {
-                Lancamento lancamentoLinha = new Lancamento(rs.getInt("id"), 
-                        rs.getString("categoriaDescricao"), rs.getFloat("valor"), 
-                        rs.getString("operacao"), rs.getString("data"), 
-                        rs.getString("descricao"));
+                Lancamento lancamentoLinha = new Lancamento();
+                lancamentoLinha.setId(rs.getInt("id"));
+                lancamentoLinha.setCategoriaDescricao(rs.getString("categoriaDescricao"));
+                lancamentoLinha.setValor(rs.getFloat("valor"));
+                lancamentoLinha.setOperacao(rs.getString("operacao"));
+                lancamentoLinha.setDataInverte(rs.getString("data"));
+                lancamentoLinha.setDescricao(rs.getString("descricao"));                
                 resultado.add(lancamentoLinha);
             }
         } catch( SQLException e ) 
@@ -101,7 +104,7 @@ public class LancamentoDAO
                 ps.setString(2, gravaLancamento.getCategoriaDescricao());
                 ps.setString(3, gravaLancamento.getValorPonto());
                 ps.setString(4, gravaLancamento.getOperacao());
-                ps.setString(5, gravaLancamento.getData());
+                ps.setString(5, gravaLancamento.getDataInverte());
                 ps.setString(6, gravaLancamento.getDescricao());
             } 
             else 
@@ -113,7 +116,7 @@ public class LancamentoDAO
                 ps.setString(1, gravaLancamento.getCategoriaDescricao());
                 ps.setString(2, gravaLancamento.getValorPonto());
                 ps.setString(3, gravaLancamento.getOperacao());
-                ps.setString(4, gravaLancamento.getData());
+                ps.setString(4, gravaLancamento.getDataInverte());
                 ps.setString(5, gravaLancamento.getDescricao());
             }
               
