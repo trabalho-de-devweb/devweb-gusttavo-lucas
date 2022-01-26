@@ -82,6 +82,10 @@ public class Lancamento
     
     public String getDataInverte() 
     {
+        if (this.data.equals("")) {
+            return this.data;
+        }
+        
         String aux;
         String[] vet = data.split("/");
         aux = vet[2] + "-" + vet[1] + "-" + vet[0];
