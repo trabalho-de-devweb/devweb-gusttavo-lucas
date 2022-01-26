@@ -64,7 +64,7 @@
                         </div>
                         <div class="form-group">
                             <label for="valor">Valor:</label>
-                            <input required type="text" class="form-control money2" id="valor" name="valor" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getValor() %>">
+                            <input required type="text" class="form-control money2" id="valor" name="valor" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getValorPonto() %>">
                         </div>
                         <div class="form-group">
                             <label for="operacao">Operação:</label>
@@ -76,11 +76,11 @@
                         </div>
                         <div class="form-group">
                             <label for="data">Data:</label>
-                            <input required type="date" class="form-control" id="data" name="data">
+                            <input required type="date" class="form-control" id="data" name="data" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getDataInverte() %>">
                         </div>
                         <div class="form-group">
                             <label for="descricao">Descrição:</label>
-                            <input type="text" class="form-control" id="descricao" name="descricao">
+                            <input type="text" class="form-control" id="descricao" name="descricao" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getDescricao() %>">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block my-4" value="Enviar">
                     </form>
@@ -94,39 +94,37 @@
             $(document).ready(function()
             {
                 $('#valor').mask('0000000000.00', {reverse: true});
-                
-                var elementoSelect = document.getElementById("descricaoCategoria");
-                var teste = true;
-                for(let i = 0; i < elementoSelect.children.length; i++)
-                {
-                    if(myElement.children[i].value === "<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getOperacao()%>")
-                    {
-                        myElement.children[i].setAttribute("selected", "selected");
-                        teste = false;
-                    }
-                }
-                if(teste)
-                {
-                    myElement.children[0].setAttribute("selected", "selected");
-                }
-                
-                elementoSelect = document.getElementById("operacao");
-                teste = true;
-                for(let i = 0; i < elementoSelect.children.length; i++)
-                {
-                    if(myElement.children[i].value === "<%=((Lancamento) request.getAttribute("lancamentoAtributo")).getCategoriaDescricao()%>")
-                    {
-                        myElement.children[i].setAttribute("selected", "selected");
-                        teste = false;
-                    }
-                }
-                if(teste)
-                {
-                    myElement.children[0].setAttribute("selected", "selected");
-                }
             });
             
-            
+            var elementoSelect = document.getElementById("descricaoCategoria");            
+            var teste = true;
+            for(let i = 0; i < elementoSelect.children.length; i++)
+            {
+                if(elementoSelect.children[i].value === "<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getCategoriaDescricao()%>")
+                {
+                    elementoSelect.children[i].setAttribute("selected", "selected");
+                    teste = false;
+                }
+            };
+            if(teste)
+            {
+                elementoSelect.children[0].setAttribute("selected", "selected");
+            }
+
+            elementoSelect = document.getElementById("operacao");
+            teste = true;            
+            for(let i = 0; i < elementoSelect.children.length; i++)
+            {
+                if(elementoSelect.children[i].value === "<%=((Lancamento) request.getAttribute("lancamentoAtributo")).getOperacao()%>")
+                {
+                    elementoSelect.children[i].setAttribute("selected", "selected");
+                    teste = false;
+                }
+            }
+            if(teste)
+            {
+                elementoSelect.children[0].setAttribute("selected", "selected");
+            }           
             
         </script>
         

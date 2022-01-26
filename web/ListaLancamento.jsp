@@ -40,8 +40,35 @@
             <%
                 String linkincluir = "ControllerLancamento?acao=incluir&idConta="
                                         + request.getParameter("idConta");
+                
+                float credito = 0;
+                float debito = 0;
+                ArrayList<Lancamento> ListaLancamento = (ArrayList<Lancamento>) request.getAttribute("lancamentoLista");                
+                for (int i = 0; i < ListaLancamento.size(); i++)
+                {
+                    if((ListaLancamento.get(i).getOperacao()).compareTo("D") == 0)
+                    {
+                        debito = debito + ListaLancamento.get(i).getValor();
+                    }
+                    else if((ListaLancamento.get(i).getOperacao()).compareTo("C") == 0)
+                    {
+                        credito = credito + ListaLancamento.get(i).getValor();
+                    }
+                }                
+                float saldo = credito - debito;
             %>
-            <a href="<%=linkincluir%>" class="btn btn-outline-primary">Incluir</a>
+            <div class="container-fluid" style="font-size:2vw">
+                <a href="<%=linkincluir%>" class="btn btn-outline-primary">Incluir</a>
+                <span class="badge badge-primary">Saldo
+                    <span class="badge badge-light"><%=(String.format("%8.2f", saldo)).replace(',', '.')%></span>
+                </span>
+                <span class="badge badge-success">Total de Créditos
+                    <span class="badge badge-light"><%=(String.format("%8.2f", credito)).replace(',', '.')%></span>
+                </span>
+                <span class="badge badge-danger">Total de Débitos
+                    <span class="badge badge-light"><%=(String.format("%8.2f", debito)).replace(',', '.')%></span>
+                </span>
+            </div>
             <p></p>
             <div class="table-responsive">
                 <table class="table table-striped">
@@ -55,20 +82,17 @@
                             <th scope="col"><div class="float-right">Ações</div><br></th>
                         </tr>
                     </thead> 
-                    <tbody>
-                        <%
-                            ArrayList<Lancamento> ListaLancamento = (ArrayList<Lancamento>) request.getAttribute("lancamentoLista"); %>
-                            <script type="text/javascript">let status = ""</script>
+                    <tbody>  
                             <%
-                            for (int i = 0; i < ListaLancamento.size(); i++) {
-                                
+                            for (int i = 0; i < ListaLancamento.size(); i++) 
+                            {                                
                                 Lancamento aux = ListaLancamento.get(i);
                                 String link_editar = "ControllerLancamento?acao=editar&id="+aux.getId()+"&idConta="+request.getParameter("idConta");
                                 String link_excluir = "ControllerLancamento?acao=excluir&id="+aux.getId()+"&idConta="+request.getParameter("idConta");%>
                             
                         <tr>
                             <td><%=aux.getCategoriaDescricao()%></td>
-                            <td><%=aux.getValor()%></td> 
+                            <td><%=aux.getValorPonto()%></td> 
                             <td><%=aux.getOperacao()%></td>
                             <td><%=aux.getData()%></td>
                             <td><%=aux.getDescricao()%></td>
