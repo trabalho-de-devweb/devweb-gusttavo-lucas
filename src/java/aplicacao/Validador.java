@@ -116,7 +116,7 @@ public class Validador
     private boolean isNome(String nome) 
     {
       char[] charArray = nome.toCharArray();
-      String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúû";
+      String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûcç";
       for (int i = 0; i < charArray.length; i++) 
       {
          char ch = charArray[i];

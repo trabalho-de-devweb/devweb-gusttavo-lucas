@@ -111,7 +111,7 @@ public class Conta
     private boolean isNome(String nome) 
     {
         char[] charArray = nome.toCharArray();
-        String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúû";
+        String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúçÇ";
         char ch;
         for (int i = 0; i < charArray.length; i++) 
         {

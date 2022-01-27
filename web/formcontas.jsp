@@ -17,7 +17,7 @@
                     <div class="py-4 text-center">
                         <h2>Formulário de Contas</h2>
                     </div>
-                    <form method="POST" action="ControllerConta" accept-charset="utf-8">
+                    <form method="POST" action="ControllerConta" accept-charset="utf-8" onsubmit="return isNome()">
                         <input type="hidden" name="id" id="id" value="<%= ((Conta) request.getAttribute("contaAtributo")).getId() %>">
                         <div class="form-group">
                             <label for="nomeContaCorrente">Nome:</label>
@@ -43,6 +43,32 @@
         </div>
 
         <%@include file="scriptsBasicos.html" %>
+        
+        <script type="text/javascript">
+        
+                function isNome()
+                {
+                    let arrChar = document.getElementById("nomeContaCorrente").textContent.split();
+                    let charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûçÇ";
+                    let ch;
+                    alert('entrei no isNome');
+                    for (int i = 0; i < arrChar.length; i++) 
+                    {
+                        ch = arrChar[i];
+                        if(ch !== ' ')
+                        {
+                           if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
+                           {
+                                alert("dados invalidos");
+                                return false;
+                           }
+                        }
+                    }
+                    
+                    return true;
+                }
+                
+        </script>
         
     </body>
     

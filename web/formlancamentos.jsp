@@ -124,7 +124,7 @@
             if(teste)
             {
                 elementoSelect.children[0].setAttribute("selected", "selected");
-            }           
+            }
             
         </script>
         
