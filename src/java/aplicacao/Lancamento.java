@@ -21,9 +21,8 @@ public class Lancamento
         this.data = data;        
         this.descricao = descricao;
     }
-
-    public Lancamento() 
-    {
+    
+    public Lancamento(){
         
     }
 

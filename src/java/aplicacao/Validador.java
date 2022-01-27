@@ -11,7 +11,10 @@ public class Validador
     private String senha;
     private String suspenso;
     private String descricao;
-
+    private String categoriaDescricao;
+    private float valor;
+    private String operacao;
+    private String data;
     
 
     public Validador(String cpf, String senha) 
@@ -40,6 +43,14 @@ public class Validador
         this.descricao = descricao;
     }  
     
+    public Validador(String categoriaDescricao, float valor, 
+            String operacao, String data, String descricao) {
+        this.categoriaDescricao = categoriaDescricao;
+        this.valor = valor;
+        this.operacao = operacao;
+        this.data = data;
+        this.descricao = descricao;
+    }
     
     public boolean validaCategoria()
     {
@@ -98,6 +109,18 @@ public class Validador
         {
            return false; 
         }
+        return true;
+    }
+    
+    public boolean validaLancamento()
+    {
+        if (!(isValor(this.valor))) {
+            return false;
+        }
+        if (!(validaData(this.data))) {
+            return false;
+        }
+        
         return true;
     }
     
@@ -201,9 +224,25 @@ public class Validador
         cpfSemMascara = cpfSemMascara + CPF.substring(12, 14);
         return cpfSemMascara;
         
-    }    
+    }
 
-    
-    
+    private boolean isValor(float valor) {
+        if (valor <= 0) {
+            return false;
+        }
+        
+        return true;
+    }
+
+    private boolean validaData(String data){
+        System.out.println(data);
+        int ano = Integer.parseInt(data.substring(6, 10));
+        
+        if (ano < 1900 || ano > 2100){
+            return false;
+        }
+        
+        return true;
+    }
     
 }

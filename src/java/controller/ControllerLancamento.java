@@ -3,6 +3,7 @@ package controller;
 import aplicacao.Categoria;
 import aplicacao.Lancamento;
 import aplicacao.Login;
+import aplicacao.Validador;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -147,11 +148,11 @@ public class ControllerLancamento extends HttpServlet {
         String servletDeRetorno = "ControllerLancamento?acao=mostrar&idConta=" 
                 + request.getParameter("idConta");
         
-        //fazer a validação!!!
-        /*Validador adminValidado = new Validador(adminAux.getNome(), 
-                adminAux.getCpf(), adminAux.getSenha());
+        Validador lancamentoValidado = new Validador(lancamentoAux.getDescricao(), lancamentoAux.getValor(), 
+                lancamentoAux.getOperacao(), lancamentoAux.getData(), 
+                lancamentoAux.getDescricao());
         
-        if(!(adminValidado.validaAdmin()))
+        if(!(lancamentoValidado.validaLancamento()))
         {
             mensagem = "Erro!Dados inválidos.";
             request.setAttribute("mensagem", mensagem);
@@ -159,7 +160,7 @@ public class ControllerLancamento extends HttpServlet {
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");
             rd.forward(request, response);
             return;
-        }*/
+        }
         
         try 
         {            

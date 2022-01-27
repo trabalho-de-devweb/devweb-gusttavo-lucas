@@ -42,7 +42,7 @@
                     <div class="py-4 text-center">
                         <h2>Formulário de Lançamentos</h2>
                     </div>
-                    <form method="POST" action="ControllerLancamento">                        
+                    <form method="POST" action="ControllerLancamento" onsubmit="return validaLancamento()">                        
                         <div class="form-group">
                             <input type="hidden" name="id" id="id" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getId() %>">
                             <input type="hidden" name="idConta" id="idConta" value="<%=request.getParameter("idConta")%>">
@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-group">
                             <label for="descricao">Descrição:</label>
-                            <input type="text" class="form-control" id="descricao" name="descricao" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getDescricao() %>">
+                            <input required type="text" class="form-control" id="descricao" name="descricao" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getDescricao() %>">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block my-4" value="Enviar">
                     </form>
@@ -90,7 +90,42 @@
         
         <%@include file="scriptsBasicos.html" %>
         
+        <script type="text/javascript">
+            function validaLancamento(){
+                if (isValor() && isAnoValido()) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+    
+            function isValor(){
+                const valor = document.getElementById("valor").value;
+                
+                if (valor <= 0) {
+                    alert("Valor inserido é inválido!");
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            function isAnoValido(){
+                const data = document.getElementById("data").value;
+                const dataInt = Number.isInteger(parseInt(data.slice(0, 4)));
+                
+                if (dataInt < 1900 || dataInt > 2100){
+                    alert("Data inserida é inválida!");
+                    return false;
+                }
+                
+                return true;
+            }
+        
+        </script>
+        
         <script>
+            
             $(document).ready(function()
             {
                 $('#valor').mask('0000000000.00', {reverse: true});
