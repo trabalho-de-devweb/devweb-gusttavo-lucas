@@ -143,7 +143,16 @@ public class Conta
     
     private boolean isNumAgencia(String numAgencia)
     {
-        return isInteger(numAgencia);
+        boolean teste = true;
+        if(numAgencia.length() > 6)
+        {
+            teste = false;
+        }
+        else if(isInteger(numAgencia))
+        {
+            teste = false;
+        }
+        return teste;
     }
     
     private boolean isNumContaCorrente(String numContaCorrente)
