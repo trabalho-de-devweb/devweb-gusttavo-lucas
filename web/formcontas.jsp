@@ -17,7 +17,7 @@
                     <div class="py-4 text-center">
                         <h2>Formulário de Contas</h2>
                     </div>
-                    <form method="POST" action="ControllerConta" accept-charset="utf-8" onsubmit="return isNome()">
+                    <form method="POST" action="ControllerConta" accept-charset="utf-8" onsubmit="return validaConta()">
                         <input type="hidden" name="id" id="id" value="<%= ((Conta) request.getAttribute("contaAtributo")).getId() %>">
                         <div class="form-group">
                             <label for="nomeContaCorrente">Nome:</label>
@@ -46,27 +46,104 @@
         
         <script type="text/javascript">
         
-                function isNome()
-                {
-                    let arrChar = document.getElementById("nomeContaCorrente").textContent.split();
-                    let charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûçÇ";
-                    let ch;
-                    alert('entrei no isNome');
-                    for (int i = 0; i < arrChar.length; i++) 
-                    {
-                        ch = arrChar[i];
-                        if(ch !== ' ')
-                        {
-                           if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
-                           {
-                                alert("dados invalidos");
-                                return false;
-                           }
-                        }
-                    }
-                    
+            function validaConta() 
+            {
+                if (isNome() && alertaNumBanco() && isNumAgencia() && alertaNumConta()) {
                     return true;
+                } else {
+                    return false;
                 }
+            }
+    
+            function isNome()
+            {
+                let arrChar = document.getElementById("nomeContaCorrente").value.split("");
+                let charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûçÇ";
+                let ch;
+                for (let i = 0; i < arrChar.length; i++) 
+                {
+                    ch = arrChar[i];
+                    if(ch !== ' ')
+                    {
+                       if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
+                       {
+                            alert("Nome inválido!");
+                            return false;
+                       }
+                    }
+                }
+
+                return true;
+            }
+            
+            function alertaNumBanco() {
+                if (isNumBanco()) {
+                    return isNumBanco();
+                } else {
+                    alert("Número de Banco inválido!");
+                    return isNumBanco();
+                }
+            }
+            
+            function alertaNumConta(){
+                if (isNumConta()){
+                    return isNumConta();
+                } else {
+                    alert("Número de conta inválido!");
+                    return isNumConta();
+                }
+            }
+    
+            function isNumBanco()
+            {
+                
+                const numBanco = document.getElementById("numeroBanco").value;
+                alert(numBanco);
+                if (numBanco.length !== 3) 
+                {
+                    return false;
+                } if (!(Number.isInteger(parseInt(numBanco)))) 
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            
+            function isNumAgencia(){
+                const numAgencia = document.getElementById("numeroAgencia").value;
+                if (!(Number.isInteger(parseInt(numAgencia)))) {
+                    alert("Número de agência inválido!");
+                    return false;
+                }
+                
+                return true;
+            }
+            
+            function isNumConta(){
+                const numConta = document.getElementById("numeroContaCorrente").value;
+                
+                let valorBool;
+                
+                if (numConta.length !== 6) {
+                    valorBool = false;
+                }
+                
+                if (numConta.indexOf("-") !== 4){
+                    valorBool = false;
+                }
+                
+                const numContaFormat = numConta.replace('-', '');
+                
+                if (numContaFormat.length !== 5) {
+                    valorBool = false;
+                } 
+                if (!(Number.isInteger(parseInt(numContaFormat)))) {
+                    valorBool = false;
+                }
+                
+                return valorBool;
+            }
                 
         </script>
         

@@ -148,6 +148,10 @@ public class Conta
     
     private boolean isNumContaCorrente(String numContaCorrente)
     {
+        if (numContaCorrente.length() != 6) {
+            return false;
+        }
+        
         String numContaFormatada = removeMascaraConta(numContaCorrente);
         
         if (numContaFormatada.length() != 5)
