@@ -67,7 +67,7 @@
                     {
                        if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
                        {
-                            alert("Nome inválido!");
+                            alert("Nome não pode conter números.");
                             return false;
                        }
                     }
@@ -89,7 +89,7 @@
                 if (isNumConta()){
                     return isNumConta();
                 } else {
-                    alert("Número de conta inválido!");
+                    alert("Número de conta deve ser no formato XXXX-X.");
                     return isNumConta();
                 }
             }

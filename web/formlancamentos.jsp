@@ -103,7 +103,7 @@
                 const valor = document.getElementById("valor").value;
                 
                 if (valor <= 0) {
-                    alert("Valor inserido é inválido!");
+                    alert("Valor inserido deve ser acima de $0.00.");
                     return false;
                 }
                 
@@ -115,7 +115,7 @@
                 const dataInt = Number.isInteger(parseInt(data.slice(0, 4)));
                 
                 if (dataInt < 1900 || dataInt > 2100){
-                    alert("Data inserida é inválida!");
+                    alert("Data deve estar entre 01/01/1900 e 31/12/2100.");
                     return false;
                 }
                 

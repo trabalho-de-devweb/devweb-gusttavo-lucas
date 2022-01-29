@@ -77,7 +77,7 @@
         
         <script type="text/javascript">
             function validaFormAdm() {
-                if (alertaCPF() && validaSenha()) {
+                if (alertaCPF() && validaSenha() && isNome()) {
                     return true;
                 } else {
                     return false;
@@ -95,7 +95,10 @@
                 
                 const strCPF = formataCPF(document.getElementById('cpf').value);
 
-                if (strCPF === "00000000000") return false;
+                if (strCPF === "00000000000" || strCPF === "11111111111" || strCPF === "22222222222" ||
+                        strCPF === "33333333333" || strCPF ==="44444444444" || strCPF === "55555555555" ||
+                        strCPF === "66666666666" || strCPF ==="77777777777" || strCPF === "88888888888" ||
+                        strCPF === "99999999999") return false;
 
                 for (i=1; i<=9; i++) soma = soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
                 resto = (soma * 10) % 11;
@@ -121,23 +124,44 @@
                     return true;
                 } else {
                     alert('CPF inválido!');
-                    document.getElementById('cpf').focus();
                     return false;
                 }
             }
             
-        function validaSenha() {
-            const senha = document.getElementById('senha').value;
-            const caracteresEspeciais = [',', ';', '=', '/', '"', "(", ")"];
-            const valor = caracteresEspeciais.some(el => senha.includes(el));
-            
-            if (valor) {
-                alert('Senha inválida!');
-                document.getElementById('senha').focus();
+            function validaSenha() {
+                const senha = document.getElementById('senha').value;
+                const caracteresEspeciais = [',', ';', '=', '/', '"', "(", ")"];
+                const valor = caracteresEspeciais.some(el => senha.includes(el));
+
+                if (valor) {
+                    alert('Senha deve conter apenas números e letras.');
+                }
+
+                return !valor;
             }
             
-            return !valor;
-        }
+            function isNome()
+            {
+                let arrChar = document.getElementById("nome").value.split("");
+                let charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûçÇ";
+                let ch;
+                for (let i = 0; i < arrChar.length; i++) 
+                {
+                    ch = arrChar[i];
+                    if(ch !== ' ')
+                    {
+                       if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
+                       {
+                            alert("Nome não pode conter números.");
+                            return false;
+                       }
+                    }
+                }
+
+                return true;
+            }
+        
+        
         </script>
         
         <%
