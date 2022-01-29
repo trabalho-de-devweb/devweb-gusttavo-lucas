@@ -30,6 +30,20 @@
         %>        
         
         <%@include file="MenuUSER.jsp" %>
+        
+        <% 
+            HttpSession usrSessao = request.getSession();
+            Usuario usrLogado = ((Login)usrSessao.getAttribute("loginUsuario")).getUsuario();
+        
+        %>
+        
+        <div class="jumbotron">
+            <h1 class="display-4">Bem vindo(a), <%=usrLogado.getNome()%>!</h1>
+            <hr class="my-4">
+            <h2>Nome: <%=usrLogado.getNome()%> <span class="badge bg-primary">Usuário</span></h2>
+            <h2>CPF: <%=usrLogado.getCpf()%></h2>
+        </div>
+        
         <%@include file="scriptsBasicos.html" %>
     </body>
 </html>

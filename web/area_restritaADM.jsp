@@ -1,4 +1,6 @@
 <%@page import="aplicacao.Login"%>
+<%@page import="aplicacao.Usuario"%>
+<%@page import="javax.servlet.http.HttpSession"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
@@ -27,9 +29,21 @@
                 </script>
         <% 
             }
-        %>        
+        %>
+        
+        <% 
+            HttpSession admSessao = request.getSession();
+            Usuario admLogado = ((Login)admSessao.getAttribute("loginAdmin")).getUsuario();
+        
+        %>
         
         <%@include file="MenuADM.jsp" %>
+        <div class="jumbotron">
+            <h1 class="display-4">Bem vindo(a), <%=admLogado.getNome()%>!</h1>
+            <hr class="my-4">
+            <h2>Nome: <%=admLogado.getNome()%> <span class="badge bg-primary">Administrador</span></h2>
+            <h2>CPF: <%=admLogado.getCpf()%></h2>
+        </div>
         <%@include file="scriptsBasicos.html" %>
     </body>
 </html>
