@@ -37,18 +37,18 @@
                     <form method="POST" action="processarLogin" onsubmit="return validaLogin()">
                         <div class="form-group">
                             <label for="cpf">CPF: </label>
-                            <input type="text" class="form-control" required name="cpf" id="cpf">
+                            <input required type="text" class="form-control" required name="cpf" id="cpf">
                         </div>
                         <div class="form-group">
                             <label for="senha">Senha: </label>
-                            <input type="password" class="form-control" required name="senha" id="senha">
+                            <input required type="password" class="form-control" required name="senha" id="senha">
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="admin" name="login" value="admin">
+                            <input required class="form-check-input" type="radio" id="admin" name="login" value="admin">
                             <label for="admin" class="form-check-label">Administrador</label>
                         </div>
                         <div class="form-check form-check-inline">
-                            <input class="form-check-input" type="radio" id="user" name="login" value="user">
+                            <input required class="form-check-input" type="radio" id="user" name="login" value="user">
                             <label for="user" class="form-check-label">Usuário</label>
                         </div>
                         <input type="submit" class="btn btn-primary btn-block my-4" value="Entrar">
@@ -101,7 +101,8 @@
                 return true;
             }
             
-            function alertaCPF(){
+            function alertaCPF()
+            {
                 const CPFeValido = validaCPF();
                 console.log(CPFeValido);
                 
@@ -114,12 +115,18 @@
                 }
             }
             
-        function validaSenha() {
-            const senha = document.getElementById('senha').value;
+        function validaSenha() 
+        {            
+            var senha = document.getElementById('senha').value;
             const caracteresEspeciais = [',', ';', '=', '/', '"', "(", ")"];
-            const valor = caracteresEspeciais.some(el => senha.includes(el));
+            var valor = caracteresEspeciais.some(el => senha.includes(el));            
+            if(senha.length > 255)
+            {
+                valor = true;
+            }
             
-            if (valor) {
+            if (valor) 
+            {
                 alert('Senha inválida!');
                 document.getElementById('senha').focus();
             }

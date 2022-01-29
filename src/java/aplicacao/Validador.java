@@ -44,7 +44,8 @@ public class Validador
     }  
     
     public Validador(String categoriaDescricao, float valor, 
-            String operacao, String data, String descricao) {
+            String operacao, String data, String descricao) 
+    {
         this.categoriaDescricao = categoriaDescricao;
         this.valor = valor;
         this.operacao = operacao;
@@ -138,25 +139,33 @@ public class Validador
     
     private boolean isNome(String nome) 
     {
-      char[] charArray = nome.toCharArray();
-      String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûcç";
-      for (int i = 0; i < charArray.length; i++) 
-      {
-         char ch = charArray[i];
-         if(ch != ' ')
-         {
-             if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) != -1))) 
-            {
-               return false;
-            }
-         }
-      }
-      return true;
+        if(nome.length() > 20)
+        {
+            return false;
+        }
+        char[] charArray = nome.toCharArray();
+        String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûç";
+        for (int i = 0; i < charArray.length; i++) 
+        {
+           char ch = charArray[i];
+           if(ch != ' ')
+           {
+               if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) != -1))) 
+              {
+                 return false;
+              }
+           }
+        }
+        return true;
    }
     
     private boolean isSenha(String senha)
     {
-        if(senha.contains(",") || senha.contains(";") || senha.contains("=") || senha.contains("\"") || senha.contains("'") || senha.contains("(") || senha.contains(")"))
+        if(senha.length() > 255)
+        {
+            return false;
+        }
+        else if(senha.contains(",") || senha.contains(";") || senha.contains("=") || senha.contains("\"") || senha.contains("'") || senha.contains("(") || senha.contains(")"))
         {
             return false;
         }
@@ -226,22 +235,21 @@ public class Validador
         
     }
 
-    private boolean isValor(float valor) {
-        if (valor <= 0) {
+    private boolean isValor(float valor) 
+    {
+        if((valor <= 0) && (valor > (99999999.99))) 
+        {
             return false;
-        }
-        
+        }        
         return true;
     }
 
-    private boolean validaData(String data){
-        System.out.println(data);
-        int ano = Integer.parseInt(data.substring(6, 10));
-        
+    private boolean validaData(String data)
+    {
+        int ano = Integer.parseInt(data.substring(6, 10));        
         if (ano < 1900 || ano > 2100){
             return false;
-        }
-        
+        }        
         return true;
     }
     
