@@ -44,7 +44,7 @@
                     <div class="py-4 text-center">
                         <h2>Formulário de Categorias</h2>
                     </div>
-                    <form method="POST" action="ControllerCategoria">
+                    <form method="POST" action="ControllerCategoria" onsubmit="return validaCategoria()">
                         <input type="hidden" class="form-control" name="id" value="<%= aux.getId() %>">
                         
                         <div class="form-group">
@@ -55,7 +55,34 @@
                     </form>
                 </div>
             </div>
-        </div>    
+        </div>
+                        
+        <script>
+            function validaCategoria(){
+                const categoria = document.getElementById("descricao").value;
+                if(categoria.length > 20)
+                {
+                    alert("Erro!Descrição deve conter no máximo 20 caracteres.");
+                    return false;
+                }
+                
+                const charArray = categoria.split("");
+                const charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûç";
+                for (let i = 0; i < charArray.length; i++) 
+                {
+                   let ch = charArray[i];
+                   if(ch !== ' ')
+                   {
+                       if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) != -1))) 
+                        {
+                            alert("Erro!Descrição só pode conter letras maiúsculas, minúsculas e com acento.");
+                            return false;
+                        }
+                   }
+                }
+                return true;
+            }
+        </script>                
 
         <%@include file="scriptsBasicos.html" %>
         

@@ -134,7 +134,7 @@
                 const valor = caracteresEspeciais.some(el => senha.includes(el));
 
                 if (valor) {
-                    alert('Senha deve conter apenas números e letras.');
+                    alert("Erro!Senha não deve conter ',', ';', '=', '\', ''', '(' e ')'.");
                 }
 
                 return !valor;

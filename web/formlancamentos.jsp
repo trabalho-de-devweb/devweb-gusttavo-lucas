@@ -127,7 +127,7 @@
                 let arrChar = document.getElementById("descricao").value.split("");
                 if(arrChar.length > 20)
                 {
-                    alert("Nome deve ter no máximo de 20 caracteres no total.");
+                    alert("Descrição deve ter no máximo de 20 caracteres no total.");
                     return false;
                 }
                 let charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûçÇ";
@@ -139,7 +139,7 @@
                     {
                        if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
                        {
-                            alert("Nome só pode conter letras maiúsculas, minúsculas e com acento.");
+                            alert("Descrição só pode conter letras maiúsculas, minúsculas e com acento.");
                             return false;
                        }
                     }
