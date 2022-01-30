@@ -145,7 +145,7 @@ public class ControllerCategoria extends HttpServlet {
         
         if(!(categoriaValidado.validaCategoria()))
         {
-            mensagem = "Erro!Dados inválidos.";
+            mensagem = categoriaValidado.getMensagem();
             request.setAttribute("mensagem", mensagem);
             request.setAttribute("servletDeRetorno", servletDeRetorno);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");

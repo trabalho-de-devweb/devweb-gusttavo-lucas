@@ -1,17 +1,19 @@
 
 package aplicacao;
 
+import java.math.BigDecimal;
+
 
 public class Lancamento 
 {
     private int id;
     private String categoriaDescricao = "";
-    private float valor = 0;
+    private BigDecimal valor = new BigDecimal("0.00");
     private String operacao = "";
     private String data = "";
     private String descricao = "";
 
-    public Lancamento(int id, String categoriaDescricao, float valor, 
+    public Lancamento(int id, String categoriaDescricao, BigDecimal valor, 
             String operacao, String data, String descricao) 
     {
         this.id = id;
@@ -46,7 +48,12 @@ public class Lancamento
         this.categoriaDescricao = categoriaDescricao;
     }
 
-    public float getValor() 
+    public String getValor() 
+    {
+        return this.valor.toString();
+    }
+    
+    public BigDecimal getValorBig() 
     {
         return this.valor;
     }
@@ -54,14 +61,15 @@ public class Lancamento
     public String getValorPonto() 
     {
         String aux = "";
-        aux = String.format("%8.2f", this.valor);
+        aux = this.valor.toString();
         aux = aux.replace(',', '.');                
         return aux;
     }
 
-    public void setValor(float valor) 
+    public void setValor(String valor) 
     {
-        this.valor = valor;
+        BigDecimal aux = new BigDecimal(valor);
+        this.valor = aux;
     }
 
     public String getOperacao() 

@@ -143,6 +143,11 @@
             function isNome()
             {
                 let arrChar = document.getElementById("nome").value.split("");
+                if(arrChar.length > 20)
+                {
+                    alert("Nome só pode conter letras maiúsculas, minúsculas e com acento no limite de 20 caracteres no total.");
+                    return false;
+                }
                 let charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûçÇ";
                 let ch;
                 for (let i = 0; i < arrChar.length; i++) 
@@ -152,7 +157,7 @@
                     {
                        if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
                        {
-                            alert("Nome não pode conter números.");
+                            alert("Nome só pode conter letras maiúsculas, minúsculas e com acento no limite de 20 caracteres no total.");
                             return false;
                        }
                     }

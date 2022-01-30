@@ -42,7 +42,7 @@ public class LancamentoDAO
                 Lancamento lancamentoLinha = new Lancamento();
                 lancamentoLinha.setId(rs.getInt("id"));
                 lancamentoLinha.setCategoriaDescricao(rs.getString("categoriaDescricao"));
-                lancamentoLinha.setValor(rs.getFloat("valor"));
+                lancamentoLinha.setValor(rs.getString("valor"));
                 lancamentoLinha.setOperacao(rs.getString("operacao"));
                 lancamentoLinha.setDataInverte(rs.getString("data"));
                 lancamentoLinha.setDescricao(rs.getString("descricao"));                
@@ -73,7 +73,7 @@ public class LancamentoDAO
                 Lancamento lancamentoEncontrado = new Lancamento();
                 lancamentoEncontrado.setId(rs.getInt("id"));
                 lancamentoEncontrado.setCategoriaDescricao(rs.getString("categoriaDescricao"));
-                lancamentoEncontrado.setValor(Float.parseFloat(rs.getString("valor")));
+                lancamentoEncontrado.setValor(rs.getString("valor"));
                 lancamentoEncontrado.setOperacao(rs.getString("operacao"));
                 lancamentoEncontrado.setDataInverte(rs.getString("data"));
                 lancamentoEncontrado.setDescricao(rs.getString("descricao"));
@@ -109,7 +109,7 @@ public class LancamentoDAO
             } 
             else 
             {
-                sql = "UPDATE usuarios SET id_categoria="
+                sql = "UPDATE lancamentos SET id_categoria="
                     + "(select id from categorias where descricao=? limit 1), "
                     + "valor=?, operacao=?, data=?, descricao=? WHERE id=?";
                 ps = conexao.prepareStatement(sql);
@@ -118,6 +118,7 @@ public class LancamentoDAO
                 ps.setString(3, gravaLancamento.getOperacao());
                 ps.setString(4, gravaLancamento.getDataInverte());
                 ps.setString(5, gravaLancamento.getDescricao());
+                ps.setInt(6, gravaLancamento.getId());
             }
               
             ps.execute();            

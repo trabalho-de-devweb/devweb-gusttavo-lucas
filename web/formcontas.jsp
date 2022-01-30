@@ -45,12 +45,20 @@
         <%@include file="scriptsBasicos.html" %>
         
         <script type="text/javascript">
+            
+            $(document).ready(function()
+            {
+                $('#numeroContaCorrente').mask('0000-0', {reverse: true});
+            });
         
             function validaConta() 
             {
-                if (isNome() && alertaNumBanco() && isNumAgencia() && alertaNumConta()) {
+                if (isNome() && isNumBanco() && isNumAgencia() && isNumConta()) 
+                {
                     return true;
-                } else {
+                } 
+                else 
+                {
                     return false;
                 }
             }
@@ -58,6 +66,11 @@
             function isNome()
             {
                 let arrChar = document.getElementById("nomeContaCorrente").value.split("");
+                if(arrChar.length > 20)
+                {
+                    alert("Nome deve ter no máximo de 20 caracteres no total.");
+                    return false;
+                }
                 let charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûçÇ";
                 let ch;
                 for (let i = 0; i < arrChar.length; i++) 
@@ -67,7 +80,7 @@
                     {
                        if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
                        {
-                            alert("Nome não pode conter números.");
+                            alert("Nome só pode conter letras maiúsculas, minúsculas e com acento.");
                             return false;
                        }
                     }
@@ -75,57 +88,58 @@
 
                 return true;
             }
-            
-            function alertaNumBanco() {
-                if (isNumBanco()) {
-                    return isNumBanco();
-                } else {
-                    alert("Número de Banco inválido!");
-                    return isNumBanco();
-                }
-            }
-            
-            function alertaNumConta(){
-                if (isNumConta()){
-                    return isNumConta();
-                } else {
-                    alert("Número de conta deve ser no formato XXXX-X.");
-                    return isNumConta();
-                }
-            }
-    
+                
             function isNumBanco()
             {
                 
                 const numBanco = document.getElementById("numeroBanco").value;
-                alert(numBanco);
+                var numero;
                 if (numBanco.length !== 3) 
                 {
+                    alert("Número de banco deve ter exatamente 3 digitos!");
                     return false;
-                } if (!(Number.isInteger(parseInt(numBanco)))) 
+                } 
+                for (let i = 0; i < numBanco.length; i++)
                 {
-                    return false;
+                    numero = parseInt(numBanco.substring(i, i+1));
+                    if (isNaN(numero)) 
+                    {
+                        alert("Campo de Banco deve conter apenas números!");
+                        return false;
+                    }
                 }
+                
 
                 return true;
             }
             
             function isNumAgencia(){
                 const numAgencia = document.getElementById("numeroAgencia").value;
-                if (!(Number.isInteger(parseInt(numAgencia)))) {
-                    alert("Número de agência inválido!");
+                var numero;
+                if (numAgencia.length > 6) 
+                {
+                    alert("Número da agência deve ter menos de 7 digitos!");
                     return false;
                 }
-                
+                for (let i = 0; i < numAgencia.length; i++)
+                {
+                    numero = parseInt(numAgencia.substring(i, i+1));
+                    if (isNaN(numero)) 
+                    {
+                        alert("Campo de Agência deve conter apenas números!");
+                        return false;
+                    }
+                }                
                 return true;
             }
             
             function isNumConta(){
                 const numConta = document.getElementById("numeroContaCorrente").value;
                 
-                let valorBool;
+                let valorBool = true;
                 
-                if (numConta.length !== 6) {
+                if (numConta.length !== 6) 
+                {
                     valorBool = false;
                 }
                 
@@ -138,10 +152,18 @@
                 if (numContaFormat.length !== 5) {
                     valorBool = false;
                 } 
-                if (!(Number.isInteger(parseInt(numContaFormat)))) {
-                    valorBool = false;
+                for (let i = 0; i < numContaFormat.length; i++)
+                {
+                    numero = parseInt(numContaFormat.substring(i, i+1));
+                    if (isNaN(numero)) 
+                    {
+                        valorBool = false;
+                    }
+                }  
+                if(!(valorBool))
+                {
+                    alert("Número de conta deve ser no formato XXXX-X onde os X devem ser apenas números.");
                 }
-                
                 return valorBool;
             }
                 

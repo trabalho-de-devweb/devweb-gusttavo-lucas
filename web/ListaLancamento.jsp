@@ -1,3 +1,4 @@
+<%@page import="java.math.BigDecimal"%>
 <%@page import="aplicacao.Lancamento"%>
 <%@page import="aplicacao.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -41,32 +42,32 @@
                 String linkincluir = "ControllerLancamento?acao=incluir&idConta="
                                         + request.getParameter("idConta");
                 
-                float credito = 0;
-                float debito = 0;
+                BigDecimal credito = new BigDecimal("0");
+                BigDecimal debito = new BigDecimal("0");
                 ArrayList<Lancamento> ListaLancamento = (ArrayList<Lancamento>) request.getAttribute("lancamentoLista");                
                 for (int i = 0; i < ListaLancamento.size(); i++)
                 {
                     if((ListaLancamento.get(i).getOperacao()).compareTo("D") == 0)
                     {
-                        debito = debito + ListaLancamento.get(i).getValor();
+                        debito = debito.add(ListaLancamento.get(i).getValorBig());
                     }
                     else if((ListaLancamento.get(i).getOperacao()).compareTo("C") == 0)
                     {
-                        credito = credito + ListaLancamento.get(i).getValor();
+                        credito = credito.add(ListaLancamento.get(i).getValorBig());
                     }
                 }                
-                float saldo = credito - debito;
+                BigDecimal saldo = credito.subtract(debito);
             %>
             <div class="container-fluid" style="font-size:2vw">
                 <a href="<%=linkincluir%>" class="btn btn-outline-primary">Incluir</a>
                 <span class="badge badge-primary">Saldo
-                    <span class="badge badge-light"><%=(String.format("%8.2f", saldo)).replace(',', '.')%></span>
+                    <span class="badge badge-light"><%=saldo.toString().replace(',', '.')%></span>
                 </span>
                 <span class="badge badge-success">Total de Créditos
-                    <span class="badge badge-light"><%=(String.format("%8.2f", credito)).replace(',', '.')%></span>
+                    <span class="badge badge-light"><%=credito.toString().replace(',', '.')%></span>
                 </span>
                 <span class="badge badge-danger">Total de Débitos
-                    <span class="badge badge-light"><%=(String.format("%8.2f", debito)).replace(',', '.')%></span>
+                    <span class="badge badge-light"><%=debito.toString().replace(',', '.')%></span>
                 </span>
             </div>
             <p></p>

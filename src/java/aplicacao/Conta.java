@@ -1,7 +1,5 @@
 package aplicacao;
 
-import java.text.ParsePosition;
-import java.text.NumberFormat;
 
 public class Conta 
 {
@@ -85,105 +83,6 @@ public class Conta
     public void setNumContaCorrente(String numContaCorrente) 
     {
         this.numContaCorrente = numContaCorrente;
-    }
+    }   
     
-    public boolean validaConta()
-    {
-        if(!(isNome(this.nome)))
-        {
-           return false; 
-        }
-        if(!(isNumBanco(this.numBanco)))
-        {
-           return false; 
-        }
-        if(!(isNumAgencia(this.numAgencia)))
-        {
-           return false; 
-        }
-        if(!(isNumContaCorrente(this.numContaCorrente)))
-        {
-           return false; 
-        }
-        return true;
-    }
-    
-    private boolean isNome(String nome) 
-    {
-        char[] charArray = nome.toCharArray();
-        String charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúçÇ";
-        char ch;
-        for (int i = 0; i < charArray.length; i++) 
-        {
-            ch = charArray[i];
-            if(ch != ' ')
-            {
-               if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) != -1))) 
-               {
-                    System.out.println((int)ch);
-                    return false;
-               }
-            }
-        }
-        return true;
-   }
-    
-    private boolean isNumBanco(String numBanco)
-    {
-        if (numBanco.length() != 3) 
-        {
-            return false;
-        } if (!(isInteger(numBanco))) 
-        {
-            return false;
-        }
-        
-        return true;
-    }
-    
-    private boolean isNumAgencia(String numAgencia)
-    {
-        boolean teste = true;
-        if(numAgencia.length() > 6)
-        {
-            teste = false;
-        }
-        else if(isInteger(numAgencia))
-        {
-            teste = false;
-        }
-        return teste;
-    }
-    
-    private boolean isNumContaCorrente(String numContaCorrente)
-    {
-        if (numContaCorrente.length() != 6) {
-            return false;
-        }
-        
-        String numContaFormatada = removeMascaraConta(numContaCorrente);
-        
-        if (numContaFormatada.length() != 5)
-        {
-            return false;
-        } 
-        if (!(isInteger(numContaFormatada))) 
-        {
-            return false;
-        }
-        
-        return true;
-    }
-    
-    private static boolean isInteger(String str) 
-    {
-        ParsePosition pos = new ParsePosition(0);
-        NumberFormat.getIntegerInstance().parse(str, pos);
-        return str.length() == pos.getIndex();
-    }
-    
-    private static String removeMascaraConta(String conta)
-    {
-        return conta.substring(0, 4) + conta.substring(5, 6);
-    }
 }

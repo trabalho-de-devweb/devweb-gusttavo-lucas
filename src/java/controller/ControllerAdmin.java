@@ -140,7 +140,7 @@ public class ControllerAdmin extends HttpServlet {
         
         if(!(adminValidado.validaAdmin()))
         {
-            mensagem = "Erro!Dados inválidos.";
+            mensagem = adminValidado.getMensagem();
             request.setAttribute("mensagem", mensagem);
             request.setAttribute("servletDeRetorno", servletDeRetorno);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");

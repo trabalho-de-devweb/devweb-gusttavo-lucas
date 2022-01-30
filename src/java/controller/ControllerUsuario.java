@@ -202,7 +202,7 @@ public class ControllerUsuario extends HttpServlet {
         
         if(!(usuarioValidado.validaUsuario()))
         {
-            mensagem = "Erro!Dados inválidos.";
+            mensagem = usuarioValidado.getMensagem();
             request.setAttribute("mensagem", mensagem);
             request.setAttribute("servletDeRetorno", servletDeRetorno);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");

@@ -2,6 +2,7 @@ package controller;
 
 import aplicacao.Conta;
 import aplicacao.Login;
+import aplicacao.Validador;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
@@ -126,9 +127,12 @@ public class ControllerConta extends HttpServlet {
         String mensagem;
         String servletDeRetorno = "ControllerConta?acao=mostrar";
         
-        if(!(contaAux.validaConta()))
+        Validador contaValidado = new Validador(contaAux.getNome(), 
+                contaAux.getNumBanco(), contaAux.getNumAgencia(),  
+                contaAux.getNumContaCorrente(), "");
+        if(!(contaValidado.validaConta()))
         {
-            mensagem = "Erro!Dados inválidos.";
+            mensagem = contaValidado.getMensagem();
             request.setAttribute("mensagem", mensagem);
             request.setAttribute("servletDeRetorno", servletDeRetorno);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");

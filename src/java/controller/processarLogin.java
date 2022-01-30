@@ -60,7 +60,7 @@ public class processarLogin extends HttpServlet
         
         if(!(loginValidado.validaLogin()))
         {
-            mensagem = "Erro!Dados inválidos.";
+            mensagem = loginValidado.getMensagem();
             request.setAttribute("mensagem", mensagem);
             request.setAttribute("servletDeRetorno", servletDeRetorno);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");
@@ -83,7 +83,7 @@ public class processarLogin extends HttpServlet
             }
             catch (PesquisaNaoEncontradaException e)
             {
-                mensagem = "Login ou senha incorretos!";
+                mensagem = "Administrador não encontrado!CPF ou senha incorretos!";
                 request.setAttribute("mensagem", mensagem);
                 request.setAttribute("servletDeRetorno", servletDeRetorno);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");
@@ -97,7 +97,7 @@ public class processarLogin extends HttpServlet
             try
             {
                 Usuario usuarioLogado = usuarioDAO.getUsuarioPorLogin(cpf, senha);
-                if(usuarioLogado.getStatus() == "S")
+                if(usuarioLogado.getStatus().compareTo("S") == 0)
                 {
                     mensagem = "Usuário suspenso! Contate o administrador.";
                     request.setAttribute("mensagem", mensagem);
@@ -116,7 +116,7 @@ public class processarLogin extends HttpServlet
             }
             catch (PesquisaNaoEncontradaException e)
             {
-                mensagem = "Login ou senha incorretos!";
+                mensagem = "Usuário não encontrado!CPF ou senha incorretos!";
                 request.setAttribute("mensagem", mensagem);
                 request.setAttribute("servletDeRetorno", servletDeRetorno);
                 RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");

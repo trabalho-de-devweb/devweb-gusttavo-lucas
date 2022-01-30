@@ -138,7 +138,7 @@ public class ControllerLancamento extends HttpServlet {
         Lancamento lancamentoAux = new Lancamento();
         lancamentoAux.setId(Integer.parseInt(request.getParameter("id")));
         lancamentoAux.setCategoriaDescricao(request.getParameter("descricaoCategoria"));
-        lancamentoAux.setValor(Float.parseFloat(request.getParameter("valor")));
+        lancamentoAux.setValor(request.getParameter("valor"));
         lancamentoAux.setOperacao(request.getParameter("operacao"));
         lancamentoAux.setDataInverte(request.getParameter("data"));
         lancamentoAux.setDescricao(request.getParameter("descricao"));
@@ -148,13 +148,13 @@ public class ControllerLancamento extends HttpServlet {
         String servletDeRetorno = "ControllerLancamento?acao=mostrar&idConta=" 
                 + request.getParameter("idConta");
         
-        Validador lancamentoValidado = new Validador(lancamentoAux.getDescricao(), lancamentoAux.getValor(), 
+        Validador lancamentoValidado = new Validador(lancamentoAux.getCategoriaDescricao(), lancamentoAux.getValorBig(), 
                 lancamentoAux.getOperacao(), lancamentoAux.getData(), 
                 lancamentoAux.getDescricao());
         
         if(!(lancamentoValidado.validaLancamento()))
         {
-            mensagem = "Erro!Dados inválidos.";
+            mensagem = lancamentoValidado.getMensagem();
             request.setAttribute("mensagem", mensagem);
             request.setAttribute("servletDeRetorno", servletDeRetorno);
             RequestDispatcher rd = getServletContext().getRequestDispatcher("/Mensagem.jsp");

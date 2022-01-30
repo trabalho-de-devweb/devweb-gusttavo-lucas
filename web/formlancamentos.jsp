@@ -80,7 +80,7 @@
                         </div>
                         <div class="form-group">
                             <label for="descricao">Descrição:</label>
-                            <input required type="text" class="form-control" id="descricao" name="descricao" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getDescricao() %>">
+                            <input type="text" class="form-control" id="descricao" name="descricao" value="<%= ((Lancamento) request.getAttribute("lancamentoAtributo")).getDescricao() %>">
                         </div>
                         <input type="submit" class="btn btn-primary btn-block my-4" value="Enviar">
                     </form>
@@ -92,33 +92,59 @@
         
         <script type="text/javascript">
             function validaLancamento(){
-                if (isValor() && isAnoValido()) {
+                if (isValor() && isAnoValido() && isNome()) {
                     return true;
                 } else {
                     return false;
                 }
             }
     
-            function isValor(){
-                const valor = document.getElementById("valor").value;
-                
-                if (valor <= 0) {
-                    alert("Valor inserido deve ser acima de $0.00.");
+            function isValor()
+            {
+                const valor = document.getElementById("valor").value;                
+                if (valor <= 0 || valor > 99999999.99) 
+                {
+                    alert("Valor inserido deve ser maior que 0 e menor que 99999999.99 com apenas 2 digitos decimais de precisão.");
                     return false;
-                }
-                
+                }                
                 return true;
             }
             
             function isAnoValido(){
                 const data = document.getElementById("data").value;
-                const dataInt = Number.isInteger(parseInt(data.slice(0, 4)));
+                const dataInt = parseInt(data.slice(0, 4));
                 
-                if (dataInt < 1900 || dataInt > 2100){
+                if (dataInt < 1900 || dataInt > 2100)
+                {
                     alert("Data deve estar entre 01/01/1900 e 31/12/2100.");
                     return false;
+                }                
+                return true;
+            }
+            
+            function isNome()
+            {
+                let arrChar = document.getElementById("descricao").value.split("");
+                if(arrChar.length > 20)
+                {
+                    alert("Nome deve ter no máximo de 20 caracteres no total.");
+                    return false;
                 }
-                
+                let charValidos = "ÀÁÁÂÃÈÉÊÌÍÎÒÓÔÕÙÚÛàáâãèéêìíîòóôõùúûçÇ";
+                let ch;
+                for (let i = 0; i < arrChar.length; i++) 
+                {
+                    ch = arrChar[i];
+                    if(ch !== ' ')
+                    {
+                       if (!((ch >= 'a' && ch <= 'z') || ((ch >= 'A' && ch <= 'Z')) || (charValidos.indexOf(ch) !== -1))) 
+                       {
+                            alert("Nome só pode conter letras maiúsculas, minúsculas e com acento.");
+                            return false;
+                       }
+                    }
+                }
+
                 return true;
             }
         
@@ -128,7 +154,7 @@
             
             $(document).ready(function()
             {
-                $('#valor').mask('0000000000.00', {reverse: true});
+                $('#valor').mask('00000000.00', {reverse: true});
             });
             
             var elementoSelect = document.getElementById("descricaoCategoria");            
