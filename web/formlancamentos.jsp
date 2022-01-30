@@ -104,7 +104,7 @@
                 const valor = document.getElementById("valor").value;                
                 if (valor <= 0 || valor > 99999999.99) 
                 {
-                    alert("Valor inserido deve ser maior que 0 e menor que 99999999.99 com apenas 2 digitos decimais de precisão.");
+                    alert("Valor inserido deve ser maior que 0 e menor que 100000000.00 com apenas 2 digitos decimais de precisão.");
                     return false;
                 }                
                 return true;
