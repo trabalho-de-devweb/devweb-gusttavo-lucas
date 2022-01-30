@@ -35,6 +35,10 @@ public class ControllerCategoria extends HttpServlet {
         else
         {
         
+        Login loginAtualizado = (Login)sessionUsuario.getAttribute("loginAdmin");
+        loginAtualizado.atualizaLogin();
+        sessionUsuario.setAttribute("loginAdmin", loginAtualizado);
+            
         String mensagem;
         String servletDeRetorno = "ControllerCategoria?acao=mostrar";
         CategoriaDAO categoriaController = new CategoriaDAO();
@@ -115,9 +119,9 @@ public class ControllerCategoria extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        request.setCharacterEncoding("UTF-8");
-        
+            throws ServletException, IOException 
+    {
+                
         HttpSession sessionUsuario = request.getSession();
         if(sessionUsuario.getAttribute("loginAdmin") == null)
         {
@@ -131,6 +135,10 @@ public class ControllerCategoria extends HttpServlet {
         }
         else
         {
+            
+        Login loginAtualizado = (Login)sessionUsuario.getAttribute("loginAdmin");
+        loginAtualizado.atualizaLogin();
+        sessionUsuario.setAttribute("loginAdmin", loginAtualizado);
         
         request.setCharacterEncoding("UTF-8");
         Categoria categoriaAux = new Categoria();        

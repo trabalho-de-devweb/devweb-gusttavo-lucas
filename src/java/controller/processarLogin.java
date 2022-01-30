@@ -35,6 +35,11 @@ public class processarLogin extends HttpServlet
                 RequestDispatcher loginEncaminhar = getServletContext().getRequestDispatcher("/login.jsp");
                 loginEncaminhar.forward(request, response);
             }
+            else
+            {
+                RequestDispatcher loginEncaminhar = getServletContext().getRequestDispatcher("/login.jsp");
+                loginEncaminhar.forward(request, response);
+            }
         }
         else
         {

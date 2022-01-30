@@ -35,6 +35,10 @@ public class ControllerUsuario extends HttpServlet {
         }
         else
         {
+            
+        Login loginAtualizado = (Login)sessionUsuario.getAttribute("loginAdmin");
+        loginAtualizado.atualizaLogin();
+        sessionUsuario.setAttribute("loginAdmin", loginAtualizado);
         
         String mensagem;
         String servletDeRetorno = "ControllerUsuario?acao=mostrar";
@@ -183,6 +187,10 @@ public class ControllerUsuario extends HttpServlet {
         } 
         else
         {
+            
+        Login loginAtualizado = (Login)sessionUsuario.getAttribute("loginAdmin");
+        loginAtualizado.atualizaLogin();
+        sessionUsuario.setAttribute("loginAdmin", loginAtualizado);
         
         request.setCharacterEncoding("UTF-8");
         Usuario usuarioAux = new Usuario();

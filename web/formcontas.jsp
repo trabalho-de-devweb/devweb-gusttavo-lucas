@@ -1,3 +1,4 @@
+<%@page import="aplicacao.Login"%>
 <%@page import="aplicacao.Conta"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +11,28 @@
     </head>
     
     <body class="bg-light">
+        
+        <%
+            HttpSession sessionUsuario = request.getSession();
+            if(sessionUsuario.getAttribute("loginUsuario") == null)
+            {
+        %>
+                <script>
+                    window.location.replace("processarLogin");
+                </script>
+        <%
+            }
+            else if(((Login)sessionUsuario.getAttribute("loginUsuario")).expiraLogin())
+            {
+        %>
+                <script>
+                    window.location.replace("processarLogin");
+                </script>
+        <% 
+            }
+            else
+            {
+        %>        
         
         <div class="container-fluid">
             <div class="row justify-content-center">
@@ -168,6 +191,11 @@
             }
                 
         </script>
+        
+        
+        <%
+        }
+        %>
         
     </body>
     

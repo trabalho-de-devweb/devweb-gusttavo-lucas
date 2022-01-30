@@ -38,6 +38,10 @@ public class ControllerLancamento extends HttpServlet {
         else
         {
         
+        Login loginAtualizado = (Login)sessionUsuario.getAttribute("loginUsuario");
+        loginAtualizado.atualizaLogin();
+        sessionUsuario.setAttribute("loginUsuario", loginAtualizado);
+        
         String mensagem;
         String servletDeRetorno = "ControllerLancamento?acao=mostrar&idConta=" 
                 + request.getParameter("idConta");
@@ -133,6 +137,10 @@ public class ControllerLancamento extends HttpServlet {
         }
         else
         {
+        
+        Login loginAtualizado = (Login)sessionUsuario.getAttribute("loginUsuario");
+        loginAtualizado.atualizaLogin();
+        sessionUsuario.setAttribute("loginUsuario", loginAtualizado);
         
         request.setCharacterEncoding("UTF-8");
         Lancamento lancamentoAux = new Lancamento();

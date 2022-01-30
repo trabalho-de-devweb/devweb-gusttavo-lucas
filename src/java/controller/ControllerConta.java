@@ -23,6 +23,25 @@ public class ControllerConta extends HttpServlet {
             throws ServletException, IOException 
     {
         
+        HttpSession sessionUsuario = request.getSession();
+        if(sessionUsuario.getAttribute("loginUsuario") == null)
+        {
+            RequestDispatcher validaLogin = getServletContext().getRequestDispatcher("/processarLogin");
+            validaLogin.forward(request, response);
+        }
+        else if(((Login)sessionUsuario.getAttribute("loginUsuario")).expiraLogin())
+        {
+            RequestDispatcher validaLogin = getServletContext().getRequestDispatcher("/processarLogin");
+            validaLogin.forward(request, response);
+        }
+        else
+        {
+        
+        Login loginAtualizado = (Login)sessionUsuario.getAttribute("loginUsuario");
+        loginAtualizado.atualizaLogin();
+        sessionUsuario.setAttribute("loginUsuario", loginAtualizado);
+        
+        
         String mensagem;
         String servletDeRetorno = "ControllerConta?acao=mostrar";
         ContaDAO contaController = new ContaDAO();
@@ -104,6 +123,7 @@ public class ControllerConta extends HttpServlet {
                 rd.forward(request, response);
                 break;
         }
+        }
     }
     
     
@@ -111,6 +131,24 @@ public class ControllerConta extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException 
     {
+        
+        HttpSession sessionUsuario = request.getSession();
+        if(sessionUsuario.getAttribute("loginUsuario") == null)
+        {
+            RequestDispatcher validaLogin = getServletContext().getRequestDispatcher("/processarLogin");
+            validaLogin.forward(request, response);
+        }
+        else if(((Login)sessionUsuario.getAttribute("loginUsuario")).expiraLogin())
+        {
+            RequestDispatcher validaLogin = getServletContext().getRequestDispatcher("/processarLogin");
+            validaLogin.forward(request, response);
+        }
+        else
+        {
+        
+        Login loginAtualizado = (Login)sessionUsuario.getAttribute("loginUsuario");
+        loginAtualizado.atualizaLogin();
+        sessionUsuario.setAttribute("loginUsuario", loginAtualizado);
         
         request.setCharacterEncoding("UTF-8");
         HttpSession sessionConta = request.getSession();
@@ -166,7 +204,7 @@ public class ControllerConta extends HttpServlet {
         }
         
         }
-    
+        }
     }
     
 

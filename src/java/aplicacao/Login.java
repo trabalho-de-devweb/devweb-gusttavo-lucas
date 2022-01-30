@@ -25,7 +25,7 @@ public class Login {
     
     public void atualizaLogin()
     {
-        this.dataHoraExpira.plusMinutes(5);
+        this.dataHoraExpira = LocalDateTime.now().plusMinutes(5);
         return;
     }
         

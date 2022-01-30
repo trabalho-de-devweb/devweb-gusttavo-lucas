@@ -1,3 +1,4 @@
+<%@page import="aplicacao.Login"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ page import="aplicacao.Conta" %>
@@ -9,6 +10,29 @@
         <title>Listagem de Contas</title>
     </head>
     <body>
+        
+        <%
+            HttpSession sessionUsuario = request.getSession();
+            if(sessionUsuario.getAttribute("loginUsuario") == null)
+            {
+        %>
+                <script>
+                    window.location.replace("processarLogin");
+                </script>
+        <%
+            }
+            else if(((Login)sessionUsuario.getAttribute("loginUsuario")).expiraLogin())
+            {
+        %>
+                <script>
+                    window.location.replace("processarLogin");
+                </script>
+        <% 
+            }
+            else
+            {
+        %>        
+        
         <jsp:include page="MenuUSER.jsp" />
 
         <h1>Lista de Contas</h1>     
@@ -70,6 +94,10 @@
         }
     }
     </script>
-        
+    
+        <%
+        }
+        %>
+    
     </body>
 </html>
